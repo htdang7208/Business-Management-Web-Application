@@ -1,6 +1,8 @@
 use [ISC_Student_Management]
 go
 
+alter table [dbo].[User] alter column Major nvarchar(50)
+
 alter table Student add IntakeID varchar(20)
 alter table Student add Password varchar(1000)
 alter table Lecturer add Password varchar(1000)
