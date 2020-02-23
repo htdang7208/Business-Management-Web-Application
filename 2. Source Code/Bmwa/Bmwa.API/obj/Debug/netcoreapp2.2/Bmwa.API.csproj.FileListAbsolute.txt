@@ -1,0 +1,14 @@
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\bin\Debug\netcoreapp2.2\Bmwa.API.deps.json
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\bin\Debug\netcoreapp2.2\Bmwa.API.runtimeconfig.json
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\bin\Debug\netcoreapp2.2\Bmwa.API.runtimeconfig.dev.json
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\bin\Debug\netcoreapp2.2\Bmwa.API.dll
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\obj\Debug\netcoreapp2.2\Bmwa.API.csprojAssemblyReference.cache
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\obj\Debug\netcoreapp2.2\Bmwa.API.csproj.CoreCompileInputs.cache
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\obj\Debug\netcoreapp2.2\Bmwa.API.RazorAssemblyInfo.cache
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\obj\Debug\netcoreapp2.2\Bmwa.API.RazorAssemblyInfo.cs
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\obj\Debug\netcoreapp2.2\Bmwa.API.AssemblyInfoInputs.cache
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\obj\Debug\netcoreapp2.2\Bmwa.API.AssemblyInfo.cs
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\obj\Debug\netcoreapp2.2\Bmwa.API.RazorTargetAssemblyInfo.cache
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\bin\Debug\netcoreapp2.2\Bmwa.API.pdb
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\obj\Debug\netcoreapp2.2\Bmwa.API.dll
+C:\Users\DTocsen\Desktop\Business-Management-Web-Application\2. Source Code\Bmwa\Bmwa.API\obj\Debug\netcoreapp2.2\Bmwa.API.pdb
