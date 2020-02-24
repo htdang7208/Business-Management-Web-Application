@@ -27,14 +27,15 @@ namespace Bmwa.API.Data
 
             if (admin == null) return null;
 
-            if (admin.PasswordHash != Helper.Genhash(password)) return null;
+            if (admin.Password != Helper.Genhash(password)) 
+                return null;
 
             return admin;
         }
 
         public async Task<Admin> Register(Admin admin, string password)
         {
-            admin.PasswordHash = Helper.Genhash(password);
+            admin.Password = Helper.Genhash(password);
 
             await _context.Admins.AddAsync(admin);
             await _context.SaveChangesAsync();
