@@ -33,13 +33,7 @@ namespace Bmwa.API.Controllers
             if (await _repo.AdminExists(adminToRegisterDto.Username))
                 return BadRequest("Username already exists!");
 
-            var admin = new Admin
-            {
-                Name = adminToRegisterDto.Name,
-                Username = adminToRegisterDto.Username,
-                ImageUrl = adminToRegisterDto.ImageUrl
-            };
-            await _repo.Register(admin, adminToRegisterDto.Password);
+            await _repo.Register(adminToRegisterDto);
 
             return StatusCode(201);
         }

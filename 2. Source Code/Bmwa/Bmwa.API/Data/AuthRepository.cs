@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Bmwa.API.Dtos;
 using Bmwa.API.Models;
 using Bmwa.API.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -33,9 +34,15 @@ namespace Bmwa.API.Data
             return admin;
         }
 
-        public async Task<Admin> Register(Admin admin, string password)
+        public async Task<Admin> Register(AdminToRegisterDto adminToRegisterDto)
         {
-            admin.Password = Helper.Genhash(password);
+            var admin = new Admin
+            {
+                Email = adminToRegisterDto.Email,
+                Username = adminToRegisterDto.Username,
+                Password = Helper.Genhash(adminToRegisterDto.Password),
+                ImageUrl = adminToRegisterDto.ImageUrl
+            };
 
             await _context.Admins.AddAsync(admin);
             await _context.SaveChangesAsync();

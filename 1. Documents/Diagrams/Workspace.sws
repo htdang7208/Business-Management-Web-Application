@@ -4,7 +4,7 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{4C72A148-B47F-4D67-ACB0-85AB6417D6A5}" Name="BMWA_LogicalDataModel" Selected="Yes" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="BMWA_LogicalDataModel.ldm"/>
+		<Model Expanded="Yes" ID="{4C72A148-B47F-4D67-ACB0-85AB6417D6A5}" Name="BMWA_LogicalDataModel" Selected="Yes" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="LogicalDataModel/BMWA_LogicalDataModel.ldm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
