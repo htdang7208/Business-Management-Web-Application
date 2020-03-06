@@ -14,5 +14,7 @@ namespace Bmwa.API.Data
         {
         }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Interview> Interviews { get; set; }
     }
 }
