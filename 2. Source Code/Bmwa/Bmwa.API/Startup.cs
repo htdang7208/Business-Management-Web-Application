@@ -4,7 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Bmwa.API.Data;
+using Bmwa.API.Data.InterfaceRepositories;
+using Bmwa.API.Data.Repositories;
 using Bmwa.API.Ultis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -41,8 +44,11 @@ namespace Bmwa.API
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddCors();
+            services.AddAutoMapper(typeof(StudentRepository).Assembly); 
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IInterviewRepository, InterviewRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
                         options.TokenValidationParameters = new TokenValidationParameters

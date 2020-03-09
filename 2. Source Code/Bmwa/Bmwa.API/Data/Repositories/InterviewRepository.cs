@@ -25,13 +25,13 @@ namespace Bmwa.API.Data
 
         public async Task<Interview> GetInterview(int id)
         {
-            var interview = await _context.Interviews.Include(u => u.Student).FirstOrDefaultAsync(i => i.Id == id);
+            var interview = await _context.Interviews.Include(u => u.Students).FirstOrDefaultAsync(i => i.Id == id);
             return interview;
         }
 
         public async Task<IEnumerable<Interview>> GetInterviews()
         {
-            var interviews = await _context.Interviews.Include(s => s.Student).ToListAsync();
+            var interviews = await _context.Interviews.Include(s => s.Students).ToListAsync();
             return interviews;
         }
 

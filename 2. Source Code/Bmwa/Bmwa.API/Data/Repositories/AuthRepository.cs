@@ -38,10 +38,8 @@ namespace Bmwa.API.Data
         {
             var admin = new Admin
             {
-                Email = adminToRegisterDto.Email,
                 Username = adminToRegisterDto.Username,
                 Password = Helper.Genhash(adminToRegisterDto.Password),
-                ImageUrl = adminToRegisterDto.ImageUrl
             };
 
             await _context.Admins.AddAsync(admin);

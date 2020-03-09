@@ -1,0 +1,9 @@
+.layout-default {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.layout-content {
+    position: relative;
+    top: 45px;
+}

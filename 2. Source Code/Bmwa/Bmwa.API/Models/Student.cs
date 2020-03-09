@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +14,11 @@ namespace Bmwa.API.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        [ForeignKey("StudentID")]
-        public ICollection<Interview> Interviews { get; set; }
+        public DateTime RegisterDate { get; set; }
+        public bool Passed { get; set; }
+        public string Remark { get; set; }
+        
+        public int InterviewID { get; set; }
+        public Interview Interview { get; set; }
     }
 }

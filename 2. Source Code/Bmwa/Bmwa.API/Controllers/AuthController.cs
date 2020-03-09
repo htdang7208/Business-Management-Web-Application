@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Bmwa.API.Data;
 using Bmwa.API.Dtos;
 using Bmwa.API.Models;
-using DatingApp.API.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

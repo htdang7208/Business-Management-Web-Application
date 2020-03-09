@@ -1,4 +1,4 @@
-namespace DatingApp.API.Dtos
+namespace Bmwa.API.Dtos
 {
     public class AdminForLoginDto
     {

@@ -1,0 +1,16 @@
+<div class="row mb-2">
+  <div class="col-6 d-flex justify-content-start">
+    <form class="form-inline">
+      <input class="form-control mr-sm-2 border-info" type="text" placeholder="Search">
+      <button class="btn btn-info" type="submit">Search</button>
+    </form>
+  </div>
+  <div class="col-6  d-flex justify-content-end">
+    <button class="btn btn-info">Add new</button>
+  </div>
+</div>
+<div class="row">
+  <div *ngFor="let admin of admins" class="col-lg-2 col-md-3 col-sm-6">
+    <app-admin-card [admin]=admin></app-admin-card>
+  </div>
+</div>
