@@ -14,7 +14,7 @@
       <div class="card">
         <img src="{{admin?.photoURL}}" alt="{{'admin?.knownAs'}}" class="card-img-top img-thumbnail">
         <div class="card-body">
-          
+
           <div class="card-footer">
             <button class="btn btn-success btn-block" form="editForm" [disabled]="!editForm.dirty">Save changes</button>
           </div>
@@ -26,12 +26,53 @@
         <tabset class="member-tabset">
           <tab heading="Edit Profile">
             <form #editForm="ngForm" id="editForm" (ngSubmit)="updateAdmin()">
-              <h4>Email</h4>
-              <input type="email" name="email" class="form-control" [(ngModel)]="admin.email">
-              <h4>Username</h4>
-              <input type="text" name="username" class="form-control" [(ngModel)]="admin.username" disabled>
-              <h4>Password</h4>
-              <input type="password" name="password" rows="6" class="form-control" [(ngModel)]="admin.password" disabled>
+              <div class="form-group">
+                <label class="control-label">Email</label>
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="email" name="email" class="form-control" [(ngModel)]="admin.email">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Username</label>
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" name="username" class="form-control" [(ngModel)]="admin.username" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Password</label>
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="password" name="password" class="form-control"
+                      [(ngModel)]="pass" [disabled]="!editPass">
+                    <button type="button" class="btn btn-primary d-inline ml-2"
+                      (click)="toggleEditPass()">{{ editPass === false ? 'Open Edit' : 'Close Edit' }}</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" *ngIf="editPass === true">
+                <label class="control-label">Repeat Password</label>
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="password" name="repeat-password" class="form-control" [(ngModel)]="repeatPass">
+                  </div>
+                </div>
+              </div>
             </form>
           </tab>
           <tab heading="Edit Photos">

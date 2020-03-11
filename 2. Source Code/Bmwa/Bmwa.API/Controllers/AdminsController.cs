@@ -41,7 +41,7 @@ namespace Bmwa.API.Controllers
             return Ok(adminToReturn);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, AdminForUpdateDto adminForUpdateDto) {
+        public async Task<IActionResult> UpdateAdmin(int id, AdminForUpdateDto adminForUpdateDto) {
             // Phương thức này được sử dụng nhằm kiểm tra xem user hiện tại có phải là user với
             // thông tin như trong token đã up lên server
             // đồng thời ngăn việc không phải chủ của id này mà đi sửa thông tin của id này

@@ -1,0 +1,15 @@
+.intake-edit {
+    color: green;
+}
+.intake-remove {
+    color: red;
+}
+.intake-edit, .intake-remove {
+    cursor: pointer;
+    transform: scale(1.2);
+    padding: 5px;
+}
+.intake-edit:hover, .intake-remove:hover {
+    cursor: pointer;
+    transform: scale(1.6);
+}

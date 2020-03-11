@@ -14,6 +14,9 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class AdminEditComponent implements OnInit {
   @ViewChild('editForm', null) editForm: NgForm;
   admin: Admin;
+  editPass = false;
+  repeatPass: string;
+  pass: string;
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) {
     if (this.editForm.dirty) {
       $event.returnValue = true;
@@ -29,9 +32,14 @@ export class AdminEditComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.admin = data['admin'];
     });
+    this.pass = this.admin.password;
   }
 
   updateAdmin() {
+    if (this.editPass === true && this.repeatPass !== this.admin.password) {
+      this.alertify.error('Your repeat password is not match to your password!');
+      return;
+    }
     this.adminService.updateAdmin(this.authService.decodedToken.nameid, this.admin)
     .subscribe(next => {
       this.alertify.success('Profile updated successfully!');
@@ -39,6 +47,13 @@ export class AdminEditComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  toggleEditPass() {
+    if (this.editPass === true) {
+      this.pass = this.admin.password;
+    }
+    return this.editPass = !this.editPass;
   }
 
 }

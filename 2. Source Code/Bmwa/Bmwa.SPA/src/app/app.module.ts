@@ -25,10 +25,9 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './views/nav/nav.component';
 import { HomeComponent } from './views/home/home.component';
 import { RegisterComponent } from './views/register/register.component';
-import { ListsComponent } from './views/lists/lists.component';
-import { MessagesComponent } from './views/messages/messages.component';
 import { SidebarComponent } from './views/sidebar/sidebar.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { StudentComponent } from './views/student/student.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -48,10 +47,9 @@ export class CustomHammerConfig extends HammerGestureConfig {
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    ListsComponent,
-    MessagesComponent,
     SidebarComponent,
-    DashboardComponent
+    DashboardComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule,

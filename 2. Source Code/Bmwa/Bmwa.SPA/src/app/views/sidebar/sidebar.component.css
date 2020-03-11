@@ -1,0 +1,15 @@
+.intake {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.intake:hover .intake-list-group {
+    display: block
+}
+.intake-list-group {
+    position: absolute;
+    top: 0;
+    left: 300px;
+    display: none;
+    width: 250px;
+}

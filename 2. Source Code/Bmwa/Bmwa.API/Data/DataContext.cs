@@ -17,5 +17,6 @@ namespace Bmwa.API.Data
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Interview> Interviews { get; set; }
+        public DbSet<Intake> Intakes { get; set; }
     }
 }

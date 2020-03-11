@@ -19,7 +19,7 @@ export class AdminEditResolver implements Resolve<Admin> {
         .pipe(
             catchError(error => {
                 this.alertify.error('Problem retrieving your data');
-                this.router.navigate(['/admins']);
+                this.router.navigate(['/admin']);
                 return of(null);
             })
         );

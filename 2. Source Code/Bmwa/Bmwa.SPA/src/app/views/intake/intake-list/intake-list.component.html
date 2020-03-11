@@ -1,0 +1,67 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date begin</th>
+      <th scope="col">Date end</th>
+      <th scope="col">Week amount</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let intake of intakes; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ intake.name }}</td>
+      <td>{{ intake.dateBegin }}</td>
+      <td>{{ intake.dateEnd }}</td>
+      <td>{{ intake.weekAmount }}</td>
+      <td>
+        <span><abbr title="edit"><i class="fa fa-pencil-square-o intake-edit" aria-hidden="true"
+              (click)="openEditModal(editTemplate, intake.id)"></i></abbr></span> -
+        <span><abbr title="remove"><i class="fa fa-trash-o intake-remove" aria-hidden="true"
+              (click)="openRemoveModal(removeTemplate, intake.name, intake.id)"></i></abbr></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #editTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit intake</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalEditRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #editForm="ngForm" [formGroup]="editIntakeForm" id="editForm" (ngSubmit)="updateIntake()">
+      <div class="form-group">
+        <label class="control-label">Name</label>
+        <input type="text" formControlName="Name" class="form-control" [(ngModel)]="editIntake.name">
+      </div>
+      <div class="form-group">
+        <label class="control-label">Date begin</label>
+        <input type="date" formControlName="DateBegin" class="form-control" [ngModel]="editIntake.dateBegin | date:'dd/MM/yyyy'">
+      </div>
+      <div class="form-group">
+        <label class="control-label">Date end</label>
+        <input type="date" formControlName="DateEnd" class="form-control" [ngModel]="editIntake.dateEnd | date:'dd/MM/yyyy'">
+      </div>
+      <div class="form-group">
+        <label class="control-label">Week amount</label>
+        <input type="number" formControlName="WeekAmount" class="form-control" [(ngModel)]="editIntake.weekAmount">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer text-right">
+    <button class="btn btn-success" type="submit">Update</button>
+  </div>
+</ng-template>
+
+<ng-template #removeTemplate>
+  <div class="modal-body text-center">
+    <p>Do you want to remove this {{ whichIntake }}?</p>
+    <button type="button" class="btn btn-outline-primary mr-2" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>
