@@ -14,6 +14,7 @@ namespace Bmwa.API.Models
         public DateTime DateAdded { get; set; }
         public bool IsMain { get; set; }
         public int AdminId { get; set; }
+        public Boolean IsShown { get; set; }
         public Admin Admin { get; set; }
     }
 }

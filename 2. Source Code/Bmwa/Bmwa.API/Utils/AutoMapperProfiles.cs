@@ -19,6 +19,8 @@ namespace DatingApp.API.Helpers
                 opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url));
             CreateMap<Photo, PhotoForDetailDto>();
             CreateMap<AdminForUpdateDto, Admin>();
+            // CreateMap<IntakeForTransformDto, Intake>();
+            CreateMap<Intake, IntakeForTransformDto>();
             CreateMap<Student, StudentDto>();
             CreateMap<Interview, InterviewDto>();
         }

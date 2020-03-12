@@ -11,7 +11,7 @@
     </form>
   </div>
   <div class="col-6  d-flex justify-content-end">
-    <button class="btn btn-info">Add new</button>
+    <button class="btn btn-info" (click)="openAddModal(addTemplate)">Add new</button>
   </div>
 </div>
 
@@ -28,7 +28,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let intake of intakes; index as i">
-      <th scope="row">{{ intake.id }}</th>
+      <th scope="row">{{ i + 1 }}</th>
       <td>{{ intake.name }}</td>
       <td>{{ intake.dateBegin }}</td>
       <td>{{ intake.dateEnd }}</td>
@@ -37,12 +37,46 @@
         <span><abbr title="edit"><i class="fa fa-pencil-square-o intake-edit" aria-hidden="true"
               (click)="openEditModal(editTemplate, intake)"></i></abbr></span> -
         <span><abbr title="remove"><i class="fa fa-trash-o intake-remove" aria-hidden="true"
-              (click)="openRemoveModal(removeTemplate, intake.name, intake.id)"></i></abbr></span>
+              (click)="openRemoveModal(removeTemplate, intake)"></i></abbr></span>
       </td>
     </tr>
   </tbody>
 </table>
-
+<!-- Modal Add template -->
+<ng-template #addTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add intake</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalAddRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #addForm="ngForm" id="addForm" (ngSubmit)="addIntake()">
+      <div class="form-group">
+        <label class="control-label">Name</label>
+        <input type="text" name="Name" class="form-control" [(ngModel)]="intakeForAdd.name">
+      </div>
+      <div class="form-group">
+        <label class="control-label">Date begin</label>
+        <input type="date" name="DateBegin" class="form-control" [value]="intakeForAdd.dateBegin | date:'yyyy-MM-dd'"
+          (input)="intakeForAdd.dateBegin = parseDate($event.target.value)">
+      </div>
+      <div class="form-group">
+        <label class="control-label">Date end</label>
+        <input type="date" name="DateEnd" class="form-control" [value]="intakeForAdd.dateEnd | date:'yyyy-MM-dd'"
+          (input)="intakeForAdd.dateEnd = parseDate($event.target.value)">
+      </div>
+      <div class="form-group">
+        <label class="control-label">Week amount</label>
+        <input type="number" name="WeekAmount" class="form-control" [(ngModel)]="intakeForAdd.weekAmount">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer text-right">
+    <button class="btn btn-success" form="addForm" type="submit" [disabled]="!addForm.valid">Add</button>
+  </div>
+</ng-template>
+<!-- Modal Edit template -->
 <ng-template #editTemplate>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Edit intake</h4>
@@ -51,24 +85,24 @@
     </button>
   </div>
   <div class="modal-body">
-    <form #editForm="ngForm" id="editForm" (ngSubmit)="updateIntake(editForm)">
+    <form #editForm="ngForm" id="editForm" (ngSubmit)="updateIntake()">
       <div class="form-group">
         <label class="control-label">Name</label>
-        <input type="text" name="Name" class="form-control" [(ngModel)]="intakeFromDOM.name">
+        <input type="text" name="Name" class="form-control" [(ngModel)]="intakeForEdit.name">
       </div>
       <div class="form-group">
         <label class="control-label">Date begin</label>
-        <input type="date" name="DateBegin" class="form-control" [value]="intakeFromDOM.dateBegin | date:'yyyy-MM-dd'"
+        <input type="date" name="DateBegin" class="form-control" [value]="intakeForEdit.dateBegin | date:'yyyy-MM-dd'"
           (input)="editIntake.dateBegin = parseDate($event.target.value)">
       </div>
       <div class="form-group">
         <label class="control-label">Date end</label>
-        <input type="date" name="DateEnd" class="form-control" [value]="intakeFromDOM.dateEnd | date:'yyyy-MM-dd'"
+        <input type="date" name="DateEnd" class="form-control" [value]="intakeForEdit.dateEnd | date:'yyyy-MM-dd'"
           (input)="editIntake.dateEnd = parseDate($event.target.value)">
       </div>
       <div class="form-group">
         <label class="control-label">Week amount</label>
-        <input type="number" name="WeekAmount" class="form-control" [(ngModel)]="intakeFromDOM.weekAmount">
+        <input type="number" name="WeekAmount" class="form-control" [(ngModel)]="intakeForEdit.weekAmount">
       </div>
     </form>
   </div>
@@ -76,10 +110,10 @@
     <button class="btn btn-success" form="editForm" type="submit" [disabled]="!editForm.valid">Update</button>
   </div>
 </ng-template>
-
+<!-- Modal Remove template -->
 <ng-template #removeTemplate>
   <div class="modal-body text-center">
-    <p>Do you want to remove this {{ nameFromDOM }}?</p>
+    <p>Do you want to remove this {{ intakeForRemove.name }}?</p>
     <button type="button" class="btn btn-outline-primary mr-2" (click)="confirm()">Yes</button>
     <button type="button" class="btn btn-primary" (click)="decline()">No</button>
   </div>

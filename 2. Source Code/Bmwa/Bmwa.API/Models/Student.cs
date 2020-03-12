@@ -15,6 +15,7 @@ namespace Bmwa.API.Models
         public string Email { get; set; }
         public string Address { get; set; }
         public DateTime RegisterDate { get; set; }
+        public Boolean IsShown { get; set; }
         public bool Passed { get; set; }
         public string Remark { get; set; }
         

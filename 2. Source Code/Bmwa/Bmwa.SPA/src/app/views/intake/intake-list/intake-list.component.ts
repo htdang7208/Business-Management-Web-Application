@@ -13,9 +13,10 @@ import { FormBuilder, NgForm } from '@angular/forms';
 })
 export class IntakeListComponent implements OnInit {
   intakes: Intake[];
-  intakeFromDOM: Intake;
-  nameFromDOM: string;
-  idFromDOM: number;
+  intakeForAdd: Intake = {} as Intake;
+  intakeForEdit: Intake = {} as Intake;
+  intakeForRemove: Intake = {} as Intake;
+  modalAddRef: BsModalRef;
   modalEditRef: BsModalRef;
   modalRemoveRef: BsModalRef;
 
@@ -36,25 +37,49 @@ export class IntakeListComponent implements OnInit {
       this.intakes = data['intakes'];
     });
   }
-  parseDate(dateString: string): Date {
-    if (dateString) {
-      return new Date(dateString);
-    }
-    return null;
+
+  addIntake() {
+    console.log('start to add');
+    this.intakeService.addIntake(this.intakeForAdd).subscribe(
+      response => {
+        this.alertify.success('Add new successfully!');
+        this.loadIntakes();
+        console.log('this.intakes: ', this.intakes);
+      }, error => {
+        this.alertify.error(error);
+      }
+    );
+    this.modalAddRef.hide();
+  }
+
+  updateIntake() {
+    this.intakeService
+      .updateIntake(this.intakeForEdit.id, this.intakeForEdit)
+      .subscribe(
+        response => {
+          this.alertify.success('Update successfully!');
+        },
+        error => {
+          this.alertify.error(error);
+        }
+      );
+    this.modalEditRef.hide();
+  }
+
+  openAddModal(template: TemplateRef<any>) {
+    this.modalAddRef = this.modalService.show(template);
   }
 
   openEditModal(template: TemplateRef<any>, intake: Intake) {
-    this.intakeFromDOM = intake;
+    this.intakeForEdit = intake;
     this.modalEditRef = this.modalService.show(template);
   }
 
-  openRemoveModal(template: TemplateRef<any>, name: string, id: number) {
-    this.nameFromDOM = name;
-    this.idFromDOM = id;
+  openRemoveModal(template: TemplateRef<any>, intake: Intake) {
+    this.intakeForRemove = intake;
     this.modalRemoveRef = this.modalService.show(template, {
       class: 'modal-sm'
     });
-    console.log('id: ', id);
   }
 
   confirm(): void {
@@ -65,17 +90,10 @@ export class IntakeListComponent implements OnInit {
     this.modalRemoveRef.hide();
   }
 
-  updateIntake(f: NgForm) {
-    this.intakeService
-      .updateIntake(this.idFromDOM, this.intakeFromDOM)
-      .subscribe(
-        response => {
-          this.alertify.success('Update successfully!');
-        },
-        error => {
-          this.alertify.error(error);
-        }
-      );
-    this.modalEditRef.hide();
+  parseDate(dateString: string): Date {
+    if (dateString) {
+      return new Date(dateString);
+    }
+    return null;
   }
 }

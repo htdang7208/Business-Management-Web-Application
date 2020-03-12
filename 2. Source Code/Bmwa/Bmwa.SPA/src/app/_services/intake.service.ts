@@ -19,6 +19,9 @@ export class IntakeService {
     return this.http.get<Intake>(this.baseUrl + 'intakes/' + id);
   }
   updateIntake(id: number, intake: Intake) {
-    return this.http.put(this.baseUrl + 'intakes/' + id, intake);
+    return this.http.put<Intake>(this.baseUrl + 'intakes/' + id, intake);
+  }
+  addIntake(intake: Intake) {
+    return this.http.post<Intake>(this.baseUrl + 'intakes', intake);
   }
 }

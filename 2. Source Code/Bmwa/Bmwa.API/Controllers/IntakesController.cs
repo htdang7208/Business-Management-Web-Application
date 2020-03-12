@@ -19,8 +19,10 @@ namespace Bmwa.API.Controllers
     public class IntakesController : ControllerBase
     {
         private readonly IIntakeRepository _repo;
-        public IntakesController(IIntakeRepository repo)
+        private readonly IMapper _mapper;
+        public IntakesController(IIntakeRepository repo, IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
         }
 
@@ -28,30 +30,50 @@ namespace Bmwa.API.Controllers
         public async Task<IActionResult> GetIntakes()
         {
             var intakes = await _repo.GetIntakes();
-            return Ok(intakes);
+            var intakesToReturn = _mapper.Map<IEnumerable<IntakeForTransformDto>>(intakes);
+            return Ok(intakesToReturn);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetIntake(int id)
         {
-            var intakeFromRepo = await _repo.GetIntake(id);
-            return Ok(intakeFromRepo);
+            var intake = await _repo.GetIntake(id);
+
+            if (intake == null) 
+                return BadRequest($"This intake is not exists on database");
+            
+            var intakesToReturn = _mapper.Map<IntakeForTransformDto>(intake);
+            return Ok(intakesToReturn);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateIntake(int id, Intake intake) {
+        public async Task<IActionResult> Put(int id, IntakeForTransformDto intakeForTransformDto)
+        {
+            var intake = await _repo.GetIntake(intakeForTransformDto.Id);
+            if (intake == null) 
+                return BadRequest($"This intake is not exists on database");
             
-            var intakeFromRepo = await _repo.GetIntake(id);
+            await _repo.UpdateIntake(intakeForTransformDto, intake);
 
-            intakeFromRepo.Name = intake.Name;
-            intakeFromRepo.DateBegin = intake.DateBegin;
-            intakeFromRepo.DateEnd = intake.DateEnd;
-            intakeFromRepo.WeekAmount = intake.WeekAmount;
-
-            if (await _repo.SaveAll()) {
+            if (await _repo.SaveAll())
+            {
                 return NoContent();
             }
 
-            throw new System.Exception($"Updating intake {id} failed on save");
+            return BadRequest($"Updating intake {id} failed on save");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Post(IntakeForTransformDto intakeForTransformDto) {
+            
+            if (await _repo.IsExists(intakeForTransformDto.Name) == true) 
+                return BadRequest($"This intake is existed on database");
+            
+            var intake = await _repo.AddIntake(intakeForTransformDto);
+            var intakeToReturn = _mapper.Map<IntakeForTransformDto>(intake);
+
+            if (await _repo.SaveAll())
+                return CreatedAtAction("GetIntake", new { id = intakeToReturn.Id }, intakeToReturn);
+            
+            return BadRequest($"Add intake is not succeed");
         }
     }
 }
