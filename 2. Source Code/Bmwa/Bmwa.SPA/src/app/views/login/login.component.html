@@ -1,0 +1,55 @@
+<div class="container bg-secondary">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h3 class="text-center">Login</h3>
+      <!--login form-->
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-group">
+            <input
+              placeholder="Enter your username"
+              type="text"
+              class="form-control"
+              id="username"
+              formControlName="username">
+            <div class="input-group-append">
+              <div class="input-group-text"><i class="fa fa-address-card-o" aria-hidden="true"></i></div>
+            </div>
+          </div>
+          <span
+            class="help-block"
+            *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
+            This field is required!
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-group">
+            <input
+              placeholder="Enter your password"
+              type="password"
+              class="form-control"
+              id="password"
+              formControlName="password">
+              <div class="input-group-append">
+                <div class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
+              </div>
+          </div>
+          <span
+            class="help-block"
+            *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+            This field is required!
+          </span>
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+        </div>
+      </form>
+      <!--login form-->
+    </div>
+  </div>
+</div>

@@ -13,8 +13,10 @@ namespace Bmwa.API.Models
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
         public bool IsMain { get; set; }
+        public string PublicId { get; set; }
+
+        // relation:
         public int AdminId { get; set; }
-        public Boolean IsShown { get; set; }
         public Admin Admin { get; set; }
     }
 }

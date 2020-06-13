@@ -10,11 +10,18 @@ namespace Bmwa.API.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Email { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public Boolean IsShown { get; set; }
-        [ForeignKey("AdminID")]
+        public string Email { get; set; }
+        public bool IsShown { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime LastActive { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public string Gender { get; set; }
+
+        // relation:
+        [ForeignKey("AdminId")]
         public ICollection<Photo> Photos { get; set; }
     }
 }

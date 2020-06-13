@@ -1,0 +1,30 @@
+p {
+  margin-bottom: .5rem;
+}
+
+select {
+  border-radius: .25rem;
+  margin-right: 2px;
+  border-color: teal;
+}
+
+form,
+.table-content,
+.border-info {
+  border: 1px solid #17a2b8 !important;
+  border-radius: .5rem;
+}
+
+.table-content {
+  max-height: 310px;
+  overflow: auto;
+  margin-bottom: .5rem;
+}
+
+form {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: .25rem;
+  margin-bottom: .5rem;
+  padding: .5rem;
+}

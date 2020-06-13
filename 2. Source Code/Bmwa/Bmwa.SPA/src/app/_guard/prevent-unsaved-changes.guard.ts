@@ -5,7 +5,7 @@ import { AdminEditComponent } from '../views/admin/admin-edit/admin-edit.compone
 @Injectable()
 export class PreventUnsavedChanges implements CanDeactivate<AdminEditComponent> {
     canDeactivate(component: AdminEditComponent) {
-        if (component.editForm.dirty) {
+        if (component.profileMode || component.passwordMode) {
             return confirm('Are you sure you want to continue? Any unsaved changes will be lost');
         }
         return true;

@@ -1,0 +1,95 @@
+<h4>Edit</h4>
+<form #f="ngForm" (ngSubmit)="submit()">
+  <div class="form-group">
+    <label class="control-label">Name</label>
+    <input
+      required
+      #name="ngModel"
+      [ngModel]="university.name"
+      type="text"
+      name="name"
+      placeholder="Enter name"
+      class="form-control" />
+    <small
+      *ngIf="name.invalid && name.touched"
+      class="help-block">
+      Name is required!
+    </small>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Phone</label>
+    <input
+      required
+      #phone="ngModel"
+      [ngModel]="university.phone"
+      type="text"
+      name="phone"
+      placeholder="Enter phone"
+      class="form-control" />
+    <small
+      *ngIf="phone.invalid && phone.touched"
+      class="help-block">
+      Phone is required!
+    </small>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Email</label>
+    <input
+      required
+      #email="ngModel"
+      [ngModel]="university.email"
+      type="email"
+      name="email"
+      placeholder="Enter email"
+      class="form-control" />
+    <small
+      *ngIf="email.invalid && email.touched"
+      class="help-block">
+      Please enter a valid email!
+    </small>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Address</label>
+    <input
+      required
+      #address="ngModel"
+      [ngModel]="university.address"
+      type="text"
+      name="address"
+      placeholder="Enter address"
+      class="form-control" />
+    <small
+      *ngIf="address.invalid && address.touched"
+      class="help-block">
+      Address is required!
+    </small>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Person contact</label>
+    <input
+      required
+      #personContact="ngModel"
+      [ngModel]="university.personContact"
+      type="text"
+      name="personContact"
+      placeholder="Enter person contact"
+      class="form-control" />
+    <small
+      *ngIf="personContact.invalid && personContact.touched"
+      class="help-block">
+      Person contact is required!
+    </small>
+  </div>
+  
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary mr-1 mb-1 w-50" [disabled]="!f.valid">Update</button>
+    <button type="button" class="btn btn-dark w-50" (click)="closeEmitter.emit()">Close</button>
+  </div>
+</form>
+<!-- 
+<div>
+  <p>status: {{f.status | json}}</p>
+  <p>dirty: {{f.dirty | json}}</p>
+  <p>valid: {{f.valid | json}}</p>
+  <p>value: {{f.value | json}}</p>
+</div> -->

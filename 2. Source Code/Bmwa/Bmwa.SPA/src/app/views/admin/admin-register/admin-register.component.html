@@ -1,0 +1,91 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <!-- username box-->
+  <div class="form-row my-1">
+    <label for="usernameBox" class="col-sm-2">Username</label>
+    <input
+      type="text"
+      id="usernameBox"
+      class="form-control col-sm-5"
+      placeholder="Username"
+      formControlName="username">
+    <div class="col-sm-5 help-block" *ngIf="registerForm.get('username').invalid && registerForm.get('username').touched">
+      Please enter a valid username!
+    </div>
+  </div>
+  <!-- password box-->
+  <div class="form-row my-1">
+    <label for="passwordBox" class="col-sm-2">Password</label>
+    <input
+      type="password"
+      id="passwordBox"
+      class="form-control col-sm-5"
+      placeholder="Password"
+      formControlName="password">
+    <div class="col-sm-5 help-block" *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">
+      Please enter a valid password!
+    </div>
+    <div class="col-sm-5 help-block" *ngIf="registerForm.get('password').hasError('minlength') && registerForm.get('password').touched">
+      Password must be at least 4 characters
+    </div>
+    <div class="col-sm-5 help-block" *ngIf="registerForm.get('password').hasError('maxlength') && registerForm.get('password').touched">
+      Password cannot exceed over 8 characters
+    </div>
+  </div>
+  <!-- email -->
+  <div class="form-row my-1">
+    <label for="emailBox" class="col-sm-2">Email</label>
+    <input
+      type="email"
+      id="emailBox"
+      class="form-control col-sm-5"
+      placeholder="Email"
+      formControlName="email">
+    <div class="col-sm-5 help-block" *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched">
+      Please enter a valid email
+    </div>
+  </div>
+  <!-- Phone -->
+  <div class="form-row my-1">
+    <label for="phoneBox" class="col-sm-2">Phone</label>
+    <input
+      type="text"
+      id="phoneBox"
+      class="form-control col-sm-5"
+      placeholder="Phone"
+      formControlName="phone">
+    <div class="col-sm-5 help-block" *ngIf="registerForm.get('phone').invalid && registerForm.get('phone').touched">
+      Phone is required!
+    </div>
+  </div>
+  <!-- Gender -->
+  <div class="form-row my-1">
+    <label for="genderBox" class="col-sm-2">Gender</label>
+    <select formControlName="gender" class="form-control col-sm-5" id="genderBox">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+  </div>
+  <!-- Address -->
+  <div class="form-row my-1">
+    <label for="addressBox" class="col-sm-2">Address</label>
+    <input
+      type="text"
+      id="addressBox"
+      class="form-control col-sm-5"
+      placeholder="Address"
+      formControlName="address">
+    <div class="col-sm-5 help-block" *ngIf="registerForm.get('address').invalid && registerForm.get('address').touched">
+      Address is required!
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-5 px-0">
+      <button class="btn btn-success" type="submit" [disabled]="!registerForm.valid">Register</button>
+    </div>  
+    <div class="col-sm-5"></div>  
+  </div>
+</form>
+<!-- 
+<p>Form Value: {{ registerForm.value | json }}</p>
+<p>Form Status: {{ registerForm.status | json }}</p> -->

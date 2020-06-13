@@ -1,0 +1,86 @@
+<div class="form-header">
+  <h4>Update student: {{ student.name }}</h4>
+</div>
+<div class="form-body">
+  <form [formGroup]="studentForm" (ngSubmit)="submit()">
+    <div class="form-row">
+      <label class="control-label">Name</label>
+      <input type="text" formControlName="name" placeholder="Enter name" class="form-control w-75 ml-auto" />
+      <small *ngIf="studentForm.get('name').invalid && studentForm.get('name').touched" class="help-block">
+        Name is required!
+      </small>
+    </div>
+    <div class="form-row">
+      <label class="control-label">Identity number</label>
+      <input type="text" formControlName="identityNumber" placeholder="Enter identity number"
+        class="form-control w-75 ml-auto" />
+      <small *ngIf="studentForm.get('identityNumber').invalid && studentForm.get('identityNumber').touched"
+        class="help-block">
+        Identity number is required!
+      </small>
+    </div>
+    <div class="form-row">
+      <label class="control-label">Interview time</label>
+      <input type="time" formControlName="interviewTime" class="form-control w-75 ml-auto">
+      <small *ngIf="studentForm.get('interviewTime').invalid && studentForm.get('interviewTime').touched"
+        class="help-block">
+        Interview time is required!
+      </small>
+    </div>
+    <div class="form-row">
+      <label class="control-label">Status</label>
+      <select formControlName="status" class="form-control w-75 ml-auto">
+        <option *ngFor="let status of statusList" [value]="status.value">{{ status.display }}</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="control-label">Remark</label>
+      <input type="text" formControlName="remark" placeholder="Enter remark" class="form-control w-75 ml-auto" />
+    </div>
+    <div class="form-row">
+      <label class="control-label">Phone</label>
+      <input type="text" formControlName="phone" placeholder="Enter phone" class="form-control w-75 ml-auto" />
+      <small *ngIf="studentForm.get('phone').invalid && studentForm.get('phone').touched" class="help-block">
+        Phone is required!
+      </small>
+    </div>
+    <div class="form-row">
+      <label class="control-label">Email</label>
+      <input type="email" formControlName="email" placeholder="Enter email" class="form-control w-75 ml-auto" />
+      <small *ngIf="studentForm.get('email').invalid && studentForm.get('email').touched" class="help-block">
+        Email is required!
+      </small>
+    </div>
+    <div class="form-row">
+      <label class="control-label">Address</label>
+      <input type="text" formControlName="address" placeholder="Enter address" class="form-control w-75 ml-auto" />
+      <small *ngIf="studentForm.get('address').invalid && studentForm.get('address').touched" class="help-block">
+        Address is required!
+      </small>
+    </div>
+    <div class="form-row">
+      <label class="control-label">Register date</label>
+      <input type="date" [value]="student.registerDate | date: 'yyyy-MM-dd'" disabled
+        class="form-control w-75 ml-auto" />
+    </div>
+    <div class="form-footer mt-1">
+      <button type="submit" class="btn btn-primary mr-1"
+        [disabled]="!studentForm.valid">{{ notWait ? 'Update' : 'Updating...' }}</button>
+      <button type="button" class="btn btn-dark" (click)="closeEmitter.emit()">Close</button>
+    </div>
+  </form>
+  <div class="image">
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onFileChanged($event)">
+      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    </div>
+    <img [src]="photoUrl" alt="" />
+  </div>
+</div>
+
+<!-- <div>
+  <p>status: {{studentForm.status | json}}</p>
+  <p>dirty: {{studentForm.dirty | json}}</p>
+  <p>valid: {{studentForm.valid | json}}</p>
+  <p>value: {{studentForm.value | json}}</p>
+</div> -->

@@ -12,24 +12,26 @@ import { BsDropdownConfig } from 'ngx-bootstrap';
 })
 export class NavComponent implements OnInit {
   model: any = {};
+  photoUrl: string;
+  topicName: string;
 
   constructor(public authService: AuthService,
               private alertify: AlertifyService,
               private router: Router) { }
 
   ngOnInit(): void {
+    // which photo is photo now
+    this.authService.currentPhotoUrl.subscribe(
+      photoUrl => this.photoUrl = photoUrl
+    );
+    this.authService.currentTopicName.subscribe(
+      topicName => this.topicName = topicName
+    );
   }
 
-  login() {
-    this.authService.login(this.model).subscribe(
-      next => {
-        this.alertify.success('Logged in successfully!');
-      }, error => {
-        this.alertify.error(error);
-      }, () => {
-        this.router.navigate(['/admins']);
-      }
-    );
+  topicNameChanged(s: string) {
+    localStorage.setItem('topicName', s);
+    this.authService.changeTopicName(s);
   }
 
   loggedIn() {
@@ -38,7 +40,10 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    this.alertify.message('Logged out');
-    this.router.navigate(['/']);
+    localStorage.removeItem('admin');
+    this.authService.decodedToken = null;
+    this.authService.currentAdmin = null;
+    this.alertify.message('Logged out successfully!');
+    this.router.navigate(['/login']);
   }
 }

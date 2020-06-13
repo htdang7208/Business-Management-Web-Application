@@ -12,8 +12,10 @@ namespace Bmwa.API.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
-        public Boolean IsShown { get; set; }
-        [ForeignKey("InterviewID")]
+        public bool IsShown { get; set; }
+        
+        // relation:
+        [ForeignKey("InterviewId")]
         public ICollection<Student> Students { get; set; }
     }
 }

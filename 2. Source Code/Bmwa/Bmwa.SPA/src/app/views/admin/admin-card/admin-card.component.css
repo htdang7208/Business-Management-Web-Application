@@ -33,3 +33,6 @@
 .animate {
     transition: all 0.3 ease-in-out;
 }
+.selectedAdmin {
+    border: 1px solid #f00;
+}

@@ -4,9 +4,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Bmwa.API.Data;
-using Bmwa.API.Data.InterfaceRepositories;
+using Bmwa.API.Data.Repositories;
 using Bmwa.API.Dtos;
 using Bmwa.API.Models;
+using Bmwa.API.Utils;
+using Bmwa.API.Utils.Params;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,10 +29,13 @@ namespace Bmwa.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetIntakes()
+        public async Task<IActionResult> GetIntakes([FromQuery]IntakeParams intakeParams)
         {
-            var intakes = await _repo.GetIntakes();
-            var intakesToReturn = _mapper.Map<IEnumerable<IntakeForTransformDto>>(intakes);
+            var intakes = await _repo.GetIntakes(intakeParams);
+            var intakesToReturn = _mapper.Map<IEnumerable<Intake>>(intakes);
+
+            Response.AddPagination(intakes.CurrentPage, intakes.PageSize, intakes.TotalCount, intakes.TotalPages);
+
             return Ok(intakesToReturn);
         }
 
@@ -42,38 +47,35 @@ namespace Bmwa.API.Controllers
             if (intake == null) 
                 return BadRequest($"This intake is not exists on database");
             
-            var intakesToReturn = _mapper.Map<IntakeForTransformDto>(intake);
+            var intakesToReturn = _mapper.Map<Intake>(intake);
             return Ok(intakesToReturn);
         }
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, IntakeForTransformDto intakeForTransformDto)
-        {
-            var intake = await _repo.GetIntake(intakeForTransformDto.Id);
-            if (intake == null) 
-                return BadRequest($"This intake is not exists on database");
-            
-            await _repo.UpdateIntake(intakeForTransformDto, intake);
-
-            if (await _repo.SaveAll())
-            {
-                return NoContent();
-            }
-
-            return BadRequest($"Updating intake {id} failed on save");
+        public async Task<IActionResult> UpdateIntake(int id, Intake intakeForUpdate)
+        {            
+            string res = await _repo.Update(id, intakeForUpdate);
+            if (res != null)
+                return BadRequest(res);
+            return Ok();
         }
-        [HttpPost]
-        public async Task<IActionResult> Post(IntakeForTransformDto intakeForTransformDto) {
-            
-            if (await _repo.IsExists(intakeForTransformDto.Name) == true) 
-                return BadRequest($"This intake is existed on database");
-            
-            var intake = await _repo.AddIntake(intakeForTransformDto);
-            var intakeToReturn = _mapper.Map<IntakeForTransformDto>(intake);
 
-            if (await _repo.SaveAll())
-                return CreatedAtAction("GetIntake", new { id = intakeToReturn.Id }, intakeToReturn);
+        [HttpPost]
+        public async Task<IActionResult> AddIntake(Intake intake) {
             
-            return BadRequest($"Add intake is not succeed");
+            var res = await _repo.Add(intake);
+            if (res != null)
+                return BadRequest(res);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteIntake(int id)
+        {            
+            string res = await _repo.Delete(id);
+            if (res != null)
+                return BadRequest(res);
+            return Ok();
         }
     }
 }

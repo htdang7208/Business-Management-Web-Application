@@ -1,0 +1,49 @@
+<div class="form-header">
+    <h4>Add new interview</h4>
+</div>
+<div class="form-body">
+    <form #f="ngForm" (ngSubmit)="submit()">
+        <div class="form-row">
+          <label class="control-label">Name</label>
+          <input
+            required
+            #name="ngModel"
+            ngModel
+            type="text"
+            name="name"
+            placeholder="Enter name"
+            class="form-control w-75 ml-auto" />
+          <small
+            *ngIf="name.invalid && name.touched"
+            class="help-block">
+            Name is required!
+          </small>
+        </div>
+        <div class="form-row">
+          <label class="control-label">Date</label>
+          <input
+            required
+            #date="ngModel"
+            ngModel
+            type="date"
+            name="date"
+            class="form-control w-75 ml-auto" />
+          <small
+            *ngIf="date.invalid && date.touched"
+            class="help-block">
+            Date begin is required!
+          </small>
+        </div>
+        <div class="form-footer mt-1">
+          <button type="submit" class="btn btn-primary mr-1" [disabled]="!f.valid">Add new</button>
+          <button type="button" class="btn btn-dark" (click)="closeEmitter.emit()">Close</button>
+        </div>
+      </form>
+</div>
+<!-- 
+<div>
+  <p>status: {{f.status | json}}</p>
+  <p>dirty: {{f.dirty | json}}</p>
+  <p>valid: {{f.valid | json}}</p>
+  <p>value: {{f.value | json}}</p>
+</div> -->

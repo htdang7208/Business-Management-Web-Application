@@ -1,0 +1,31 @@
+label.col-sm-3 {
+    font-style: italic;
+    font-weight: 700;
+    font-size: .85rem;
+    text-align: right;
+}
+label {
+    margin-bottom: 0;
+    margin-top: .5rem;
+}
+span.edit-fontawesome {
+    margin-right: .75rem;
+}
+.col-sm-2 {
+    padding-top: .5rem;
+    text-align: right;
+    font-style: italic;
+    cursor: pointer;
+}
+span.edit-word:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+    border: 1px solid #f00;
+}
+small.help-block {
+    color: #f00;
+    font-style: italic;
+}

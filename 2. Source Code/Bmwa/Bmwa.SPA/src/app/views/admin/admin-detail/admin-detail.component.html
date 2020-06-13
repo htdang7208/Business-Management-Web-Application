@@ -1,26 +1,69 @@
-<div class="row">
-  <div class="col-sm-4">
-    <div class="card">
-      <img src="{{admin?.photoURL}}" alt="{{'admin?.knownAs'}}" class="card-img-top img-thumbnail">
-      <div class="card-body mb-2">
-        
-        <div class="card-footer text-capitalize text-center bg-info">
-          <h3>{{admin.username}}</h3>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img src="{{admin?.photoUrl || '../../../../../../assets/user.png'}}" alt="{{'admin?.knownAs'}}"
+          class="card-img-top img-thumbnail">
+        <div class="card-body mb-2">
+
+          <div class="card-footer text-capitalize text-center bg-secondary text-white">
+            <h3>{{ admin?.username.charAt(0).toUpperCase() + admin?.username.slice(1) }}</h3>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-8">
-    <div class="tab-panel">
-      <tabset class="member-tabset">
-        <tab heading="Email">
-          <p>{{admin?.email}}</p>
-        </tab>
-        <tab heading="Photos">
-          <h4>Photos</h4>
-          <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-        </tab>
-      </tabset>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <!-- Tab: General -->
+          <tab heading="General">
+            <div class="list-group">
+              <!-- Created -->
+              <p class="list-group-item list-group-item-action">
+                <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                <span>Created</span>
+                <!-- <span>{{ admin?.created | date: 'mediumDate'}}</span> -->
+                <span>{{ admin?.created | date: 'medium'}}</span>
+              </p>
+              <!-- Last active -->
+              <p class="list-group-item list-group-item-action">
+                <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                <span>Last active</span>
+                <!-- <span>{{ admin?.lastActive | timeAgo}}</span> -->
+                <span>{{ admin?.lastActive | timeAgo}}</span>
+              </p>
+              <!-- Gender -->
+              <p class="list-group-item list-group-item-action">
+                <span><i class="fa fa-venus-mars" aria-hidden="true"></i></span>
+                <span>Gender</span>
+                <span>{{ admin?.gender }}</span>
+              </p>
+              <!-- Email -->
+              <p class="list-group-item list-group-item-action">
+                <span><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                <span>Email</span>
+                <span>{{ admin?.email }}</span>
+              </p>
+              <!-- Phone -->
+              <p class="list-group-item list-group-item-action">
+                <span><i class="fa fa-phone" aria-hidden="true"></i></span>
+                <span>Phone</span>
+                <span>{{ admin?.phone }}</span>
+              </p>
+              <!-- Address -->
+              <p class="list-group-item list-group-item-action">
+                <span><i class="fa fa-address-card-o" aria-hidden="true"></i></span>
+                <span>Address</span>
+                <span>{{ admin?.address }}</span>
+              </p>
+            </div>
+          </tab>
+          <tab heading="Photos">
+            <h4>Photos</h4>
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+          </tab>
+        </tabset>
+      </div>
     </div>
   </div>
 </div>

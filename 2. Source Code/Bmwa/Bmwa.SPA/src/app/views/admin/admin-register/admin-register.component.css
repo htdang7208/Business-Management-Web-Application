@@ -1,0 +1,25 @@
+.form-row input,
+.form-row select {
+    position: relative;
+    top: -.5rem;
+    left: 0;
+    padding-left: 10px;
+}
+.form-row label {
+    font-weight: 500;
+}
+input.ng-invalid.ng-touched {
+    border: 1px solid #f00;
+}
+input.ng-valid.ng-touched {
+    border: 1px solid #08C424;
+}
+select.ng-valid {
+    border: 1px solid #08C424;
+}
+
+.form-row .help-block {
+    color: #f00;
+    font-style: italic;
+    padding-left: 10px;
+}

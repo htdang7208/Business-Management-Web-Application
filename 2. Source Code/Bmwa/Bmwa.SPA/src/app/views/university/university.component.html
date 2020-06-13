@@ -1,0 +1,98 @@
+<div class="row content-row">
+
+  <div class="col-sm-8">
+
+    <div class="d-flex mb-1">
+      <div class="d-flex">
+        <h4>Display</h4>
+        <button class="btn btn-primary btn-add" (click)="openAdd()">{{ !addMode ? 'Open add' : 'Close add' }}</button>
+      </div>
+      <div class="form-inline ml-auto">
+        <label class="mr-auto">Name:</label>
+        <input class="form-control mx-1" type="text" placeholder="Enter name" [(ngModel)]="nameFilter"
+          (input)="loadUniversities()" />
+        <button class="btn btn-dark" (click)="resetFilter()">Reset Filter</button>
+      </div>
+    </div>
+    <div class="table-content">
+      <table class="table-header">
+        <thead>
+          <tr>
+            <th class="tb-col-1" scope="col">No</th>
+            <th class="tb-col-2" scope="col">Name</th>
+            <th class="tb-col-3" scope="col">Phone</th>
+            <th class="tb-col-4" scope="col">Email</th>
+            <th class="tb-col-5" scope="col">Address</th>
+            <th class="tb-col-6" scope="col">Person contact</th>
+            <th class="tb-col-7" scope="col"></th>
+          </tr>
+        </thead>
+      </table>
+      <div class="table-body">
+        <table class="table table-hover table-striped">
+          <tbody>
+            <tr *ngIf="universities.length <= 0">
+              <td colspan="5" class="emtpy-table-content">
+                Empty...
+              </td>
+            </tr>
+            <tr *ngFor="let university of universities; index as i">
+              <th class="tb-col-1" scope="row">{{ i + 1 }}</th>
+              <td class="tb-col-2">{{ university.name }}</td>
+              <td class="tb-col-3">{{ university.phone }}</td>
+              <td class="tb-col-4">{{ university.email }}</td>
+              <td class="tb-col-5">{{ university.address }}</td>
+              <td class="tb-col-6">{{ university.personContact }}</td>
+              <td class="tb-col-7">
+                <span class="text-primary" (click)="openEdit(university)">
+                  <abbr title="edit">
+                    <i class="fa fa-pencil-square-o extend-size-1" aria-hidden="true"></i>
+                  </abbr>
+                </span> -
+                <span class="text-danger" (click)="removeUniversity(university)">
+                  <abbr title="delete">
+                    <i class="fa fa-trash-o extend-size-1" aria-hidden="true"></i>
+                  </abbr>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <pagination [boundaryLinks]="true" [maxSize]="5" [totalItems]="pagination.totalItems"
+        [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+        (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="First"
+        lastText="Last">
+      </pagination>
+
+      <div class="d-flex">
+        <p class="mt-2 mb-0 mr-4">Total: <span class="text-primary">{{ pagination.totalItems }} items</span></p>
+
+        <div class="form-inline" style="padding-bottom: .85rem;">
+          <label>Page size: </label>
+          <select class="form-control ml-2 page-size" [(ngModel)]="pagination.itemsPerPage" name="pageSize"
+            (change)="loadUniversities()">
+            <option *ngFor="let pageSize of pageSizes.list" [value]="pageSize.value">{{pageSize.display}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Edit / Add -->
+  <div class="col-sm-4 content-col-sm-4">
+    <app-university-add *ngIf="addMode" [lastPage]=pagination.totalPages (currentPageEmitter)="loadAfterChanged($event)"
+      (closeEmitter)="addMode = false"></app-university-add>
+    <app-university-edit *ngIf="editMode" [university]=university [currentPage]=currentPage
+      (currentPageEmitter)="loadAfterChanged($event)" (closeEmitter)="editMode = false"></app-university-edit>
+
+    <div *ngIf="!addMode && !editMode" class="message">
+      <p>Edit or Add new ???</p>
+    </div>
+  </div>
+
+</div>

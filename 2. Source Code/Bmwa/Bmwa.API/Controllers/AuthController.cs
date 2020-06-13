@@ -3,8 +3,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Bmwa.API.Data;
 using Bmwa.API.Dtos;
+using Bmwa.API.Dtos.Admin;
 using Bmwa.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -18,23 +20,12 @@ namespace Bmwa.API.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        private readonly IMapper _mapper;
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _config = config;
             _repo = repo;
-        }
-
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(AdminToRegisterDto adminToRegisterDto)
-        {
-            adminToRegisterDto.Username = adminToRegisterDto.Username.ToLower();
-
-            if (await _repo.AdminExists(adminToRegisterDto.Username))
-                return BadRequest("Username already exists!");
-
-            await _repo.Register(adminToRegisterDto);
-
-            return StatusCode(201);
+            _mapper = mapper;
         }
 
         [HttpPost("login")]
@@ -64,10 +55,30 @@ namespace Bmwa.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
+            var admin = _mapper.Map<AdminForListDto>(adminFromRepo);
+
             return Ok(new
             {
-                token = tokenHandler.WriteToken(token)
+                token = tokenHandler.WriteToken(token),
+                admin
             });
+        }
+        
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(AdminToRegisterDto adminToRegisterDto) {
+            adminToRegisterDto.Username = adminToRegisterDto.Username.ToLower();
+
+            if (await _repo.AdminExists(adminToRegisterDto.Username)) {
+                return BadRequest("Username already exists!");
+            } 
+
+            var admin = await _repo.Register(adminToRegisterDto);
+
+            if (await _repo.saveAll()) {
+                return BadRequest("Register fail!");
+            }
+
+            return StatusCode(201, admin);
         }
     }
 }

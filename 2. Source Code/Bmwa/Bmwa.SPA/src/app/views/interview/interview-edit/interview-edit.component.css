@@ -1,0 +1,31 @@
+.help-block {
+    color: #F20732;
+    font-style: italic;
+  }
+  
+  input.ng-invalid.ng-touched {
+    border: 1px solid #F20732;
+  }
+  
+  .form-row {
+    margin-bottom: .25rem;
+  }
+  
+  .form-header {
+    border-bottom: 1px solid gainsboro;
+    padding: 1rem;
+  }
+  .form-header h4 {
+      margin: 0;
+  }
+  
+  .form-body {
+    padding: 1rem;
+  }
+  
+  .help-block,
+  .form-footer {
+    width: 75% !important;
+    margin-left: auto !important;
+  }
+  

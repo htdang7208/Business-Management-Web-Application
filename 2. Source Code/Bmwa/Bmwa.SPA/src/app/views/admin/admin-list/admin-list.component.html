@@ -1,21 +1,100 @@
-<div class="row mb-2">
-  <div class="col-6 d-flex justify-content-start">
-    <h3 class="text-info">Admin list</h3>
-  </div>
-</div>
-<div class="row mb-2">
-  <div class="col-6 d-flex justify-content-start">
-    <form class="form-inline">
-      <input class="form-control mr-sm-2 border-info" type="text" placeholder="Search">
-      <button class="btn btn-info" type="submit">Search</button>
-    </form>
-  </div>
-  <div class="col-6  d-flex justify-content-end">
-    <button class="btn btn-info">Add new</button>
-  </div>
-</div>
 <div class="row">
-  <div *ngFor="let admin of admins" class="col-lg-2 col-md-3 col-sm-6">
-    <app-admin-card [admin]=admin></app-admin-card>
+  <!-- Menu -->
+  <div class="col-3">
+
+    <div>
+      <h4>Filter</h4>
+
+      <div class="form-group">
+        <label for="gender">Gender: </label>
+        <select class="form-control mr-sm-2 border-info" [(ngModel)]="adminParams.gender" name="gender">
+          <option *ngFor="let gender of genderList" [value]="gender.value">{{gender.display}}</option>
+        </select>
+      </div>
+
+      <!-- Filter -->
+      <div class="form-group">
+        <label for="name">Name: </label>
+        <input class="form-control mr-sm-2 border-info" type="text" placeholder="Enter name"
+          [(ngModel)]="adminParams.username">
+      </div>
+
+      <div class="clearfix">
+        <label>Sort by:</label>
+        <div class="btn-group float-right">
+          <button type="button" name="orderBy" class="btn btn-warning text-light" [(ngModel)]="adminParams.orderBy"
+            btnRadio="default">Default</button>
+          <button type="button" name="orderBy" class="btn btn-warning text-light" [(ngModel)]="adminParams.orderBy"
+            btnRadio="lastActive">Last Active</button>
+          <button type="button" name="orderBy" class="btn btn-warning text-light" [(ngModel)]="adminParams.orderBy"
+            btnRadio="created">Newest Members</button>
+        </div>
+      </div>
+
+      <div class="my-2 text-right">
+        <button class="btn btn-secondary mr-sm-1" (click)="resetFilter()">Reset Filter</button>
+        <button class="btn btn-info" (click)="loadAdmins()">Apply Filter</button>
+      </div>
+    </div>
+    <!-- /Filter -->
+    <hr>
+    <!-- Adjustion -->
+    <div class="pr-3">
+      <h4>Adjustion</h4>
+
+      <div class="row">
+        <p class="col-sm-4">Registration:</p>
+        <button type="button" class="col-sm-8 btn btn-outline-info"
+          (click)="openRegisterModal(registerModal)">Register</button>
+      </div>
+
+      <div class="row mt-2">
+        <p class="col-sm-4">Deletion:</p>
+        <button type="button" class="col-sm-8 btn btn-outline-danger"
+          [ngClass]="{active: -1 !== adminIdForDeletion}"
+          (click)="deleteAdmin(adminIdForDeletion)">Delete</button>
+      </div>
+    </div>
+    <!-- /Adjustion -->
+  </div>
+  <!-- /Menu -->
+
+  <!-- Display -->
+  <div class="col-9">
+    <div class="row">
+      <div class="col-8">
+        <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+          [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="Back"
+          nextText="Forward" firstText="First Page" lastText="Last Page">
+        </pagination>
+      </div>
+      <div class="col-4 d-flex justify-content-end">
+        <div class="form-group form-inline">
+          <label class="font-weight-bold">Page size: </label>
+          <select class="form-control mx-sm-2 px-3 border-info" [(ngModel)]="pagination.itemsPerPage" name="pageSize"
+            (change)="loadAdmins()">
+            <option *ngFor="let pageSize of pageSizeList" [value]="pageSize.value">{{pageSize.display}}</option>
+          </select>
+        </div>
+        <p class="ml-2 pt-2"><b>Total:</b> {{ pagination.totalItems }} persons</p>
+      </div>
+    </div>
+    <div class="row overflow-auto" style="max-height: 465px;">
+      <div *ngFor="let admin of admins" class="col-lg-2 col-md-3 col-sm-6">
+        <app-admin-card [admin]=admin></app-admin-card>
+      </div>
+    </div>
   </div>
 </div>
+
+<ng-template #registerModal class="modal-lg">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Administrator registration</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="registerModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-admin-register></app-admin-register>
+  </div>
+</ng-template>

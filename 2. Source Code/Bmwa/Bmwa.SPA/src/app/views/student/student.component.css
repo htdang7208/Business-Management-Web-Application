@@ -1,0 +1,36 @@
+.extend-size-1:hover {
+  transform: scale(1.5);
+}
+
+.table-content {
+  max-height: 310px;
+  overflow: auto;
+  margin-bottom: .5rem;
+}
+
+table {
+  border: 1px solid rgb(235, 235, 235);
+}
+
+form {
+  display: flex;
+  align-items: flex-start;
+  margin-top: .25rem;
+  margin-bottom: .5rem;
+  padding: .5rem;
+}
+
+form,
+.table-content,
+.border-info {
+  border: 1px solid #17a2b8 !important;
+  border-radius: .5rem;
+}
+
+td abbr {
+  cursor: pointer;
+}
+
+timepicker {
+  margin-top: .35rem;
+}

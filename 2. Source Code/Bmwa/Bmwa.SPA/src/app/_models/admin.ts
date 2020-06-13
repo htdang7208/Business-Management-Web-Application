@@ -2,9 +2,14 @@ import { Photo } from './photo';
 
 export interface Admin {
     id: number;
-    email: string;
     username: string;
     password: string;
-    photoURL: string;
+    email: string;
+    created: Date;
+    lastActive: Date;
+    phone: string;
+    address: string;
+    gender: string;
+    photoUrl: string;
     photos: Photo[];
 }

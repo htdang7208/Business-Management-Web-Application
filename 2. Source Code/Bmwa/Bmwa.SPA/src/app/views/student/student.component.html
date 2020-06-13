@@ -1,1 +1,94 @@
-<p>student works!</p>
+<h4>Student Filter</h4>
+<form [formGroup]="filterForm">
+  <div class="mr-1">
+    <label>Name:</label>
+    <input class="form-control" type="text" placeholder="Enter name" formControlName="name" (input)="loadStudents()" />
+  </div>
+  <div class="mr-1">
+    <label>Identity Number:</label>
+    <input class="form-control" type="text" placeholder="Enter identity number" formControlName="identityNumber"
+      (input)="loadStudents()" />
+  </div>
+  <div class="mr-2">
+    <label>Time from:</label>
+    <input type="time" class="form-control" formControlName="interviewTime" (change)="loadStudents()" />
+  </div>
+  <div class="mr-2">
+    <label>Status:</label>
+    <select formControlName="status" class="form-control" (change)="loadStudents()">
+      <option *ngFor="let status of statusList" [value]="status.value">{{ status.display }}</option>
+    </select>
+  </div>
+</form>
+<div class="text-right">
+  <button class="btn btn-dark" type="button" (click)="resetFilter()">Reset Filter</button>
+</div>
+
+<h4>Student table:</h4>
+<div class="table-content">
+  <table class="table table-hover table-striped table-light">
+    <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Identity Number</th>
+        <th scope="col">Interview Time</th>
+        <th scope="col">Status</th>
+        <!-- <th scope="col">Remark</th> -->
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="students.length <= 0">
+        <td colspan="5" class="emtpy-table-content">
+          Empty...
+        </td>
+      </tr>
+      <tr *ngFor="let student of students; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ student.name }}</td>
+        <td>{{ student.identityNumber }}</td>
+        <td>{{ student.interviewTime }}</td>
+        <td>{{ student.status === 2 ? 'Not attended' : student.status === 0 ? 'Failed' : 'Passed'}}</td>
+        <td>
+          <span class="text-primary" (click)="openModal(editModal, student)">
+            <abbr title="edit">
+              <i class="fa fa-pencil-square-o extend-size-1" aria-hidden="true"></i>
+            </abbr>
+          </span> -
+          <span class="text-danger" (click)="remove(student)">
+            <abbr title="delete">
+              <i class="fa fa-trash-o extend-size-1" aria-hidden="true"></i>
+            </abbr>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="d-flex justify-content-between">
+  <pagination [boundaryLinks]="true" [maxSize]="3" [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;" nextText="&rsaquo;" firstText="First" lastText="Last">
+  </pagination>
+
+  <div class="d-flex">
+    <p class="mt-2 mb-0 mr-4">Total: <span class="text-primary">{{ pagination.totalItems }} items</span></p>
+
+    <div class="form-inline" style="padding-bottom: .85rem;">
+      <label>Page size: </label>
+      <select class="form-control ml-2 pl-2 border-info" [(ngModel)]="pagination.itemsPerPage" name="pageSize"
+        (change)="loadStudents()">
+        <option *ngFor="let pageSize of pageSizeList" [value]="pageSize.value">{{pageSize.display}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+<ng-template #editModal>
+  <div>
+    <app-student-edit [student]=student [currentPage]="currentPage" (currentPageEmitter)="loadAfterHandle($event)"
+      (closeEmitter)="this.editModalRef.hide()">
+    </app-student-edit>
+  </div>
+</ng-template>

@@ -1,82 +1,246 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-sm-4">
-      <h1>Your Profile</h1>
-    </div>
-    <div class="col-sm-8">
-      <div *ngIf="editForm.dirty" class="alert alert-info">
-        <p><strong>Information:</strong> You have made changed. Any unsaved will be lost!</p>
-      </div>
+    <div class="col-sm-4 text-right">
+      <h1>{{ admin?.username.charAt(0).toUpperCase() + admin?.username.slice(1) }}</h1>
     </div>
   </div>
   <div class="row">
+    <!-- Image -->
     <div class="col-sm-4">
       <div class="card">
-        <img src="{{admin?.photoURL}}" alt="{{'admin?.knownAs'}}" class="card-img-top img-thumbnail">
-        <div class="card-body">
-
-          <div class="card-footer">
-            <button class="btn btn-success btn-block" form="editForm" [disabled]="!editForm.dirty">Save changes</button>
-          </div>
-        </div>
+        <img src="{{photoUrl}}" alt="{{'admin?.knownAs'}}"
+          class="card-img-top img-thumbnail">
       </div>
     </div>
+    <!-- Edition -->
     <div class="col-sm-8">
       <div class="tab-panel">
         <tabset class="member-tabset">
+          <!-- Tab: Edit Profile -->
           <tab heading="Edit Profile">
-            <form #editForm="ngForm" id="editForm" (ngSubmit)="updateAdmin()">
-              <div class="form-group">
-                <label class="control-label">Email</label>
-                <div class="form-group">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                    </div>
-                    <input type="email" name="email" class="form-control" [(ngModel)]="admin.email">
+            <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" #editProfileForm="ngForm">
+              <!-- Username -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">Username</label>
+                <div class="col-sm-7 input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
                   </div>
+                  <input type="text" class="form-control" name="username" disabled 
+                    value="{{admin?.username}}"/>
                 </div>
+                <div class="col-sm-2"></div>
               </div>
-              <div class="form-group">
-                <label class="control-label">Username</label>
-                <div class="form-group">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
-                    </div>
-                    <input type="text" name="username" class="form-control" [(ngModel)]="admin.username" disabled>
+              <!-- End: Username -->
+              <!-- Created -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">Created</label>
+                <div class="col-sm-7 input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                   </div>
+                  <input type="text" class="form-control" name="created" disabled
+                    value="{{admin?.created | date: 'medium'}}" />
                 </div>
+                <div class="col-sm-2"></div>
               </div>
-              <div class="form-group">
-                <label class="control-label">Password</label>
-                <div class="form-group">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
-                    </div>
-                    <input type="password" name="password" class="form-control"
-                      [(ngModel)]="pass" [disabled]="!editPass">
-                    <button type="button" class="btn btn-primary d-inline ml-2"
-                      (click)="toggleEditPass()">{{ editPass === false ? 'Open Edit' : 'Close Edit' }}</button>
+              <!-- End: Created -->
+              <!-- Last active -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">Last active</label>
+                <div class="col-sm-7 input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
                   </div>
+                  <input type="text" class="form-control" name="lastActive" disabled
+                    value="{{admin?.lastActive | timeAgo}}" />
                 </div>
+                <div class="col-sm-2"></div>
               </div>
-              <div class="form-group" *ngIf="editPass === true">
-                <label class="control-label">Repeat Password</label>
-                <div class="form-group">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
-                    </div>
-                    <input type="password" name="repeat-password" class="form-control" [(ngModel)]="repeatPass">
+              <!-- End: Last active -->
+              <!-- Gender -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">Gender</label>
+                <div class="col-sm-7 input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-transgender" aria-hidden="true"></i></span>
                   </div>
+                  <select class="form-control" formControlName="gender" (change)="modifyProfile()">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
                 </div>
+                <div class="col-sm-2"></div>
               </div>
+              <!-- End: Gender -->
+              <!-- Email -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-plane" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="email" (change)="modifyProfile()" />
+                  </div>
+                  <!-- Error email handler -->
+                  <small class="help-block"
+                    *ngIf="profileForm.get('email').hasError('email') && profileForm.get('email').touched">
+                    Please enter a valid email!
+                  </small>
+                  <small class="help-block"
+                    *ngIf="profileForm.get('email').hasError('required') && profileForm.get('email').touched">
+                    Email is required!
+                  </small>
+                </div>
+                <div class="col-sm-2"></div>
+              </div>
+              <!-- End: Email -->
+              <!-- Phone -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">Phone</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="phone" (change)="modifyProfile()" />
+                  </div>
+                  <!-- Error phone handler -->
+                  <small class="help-block"
+                    *ngIf="profileForm.get('phone').invalid && profileForm.get('phone').touched">
+                    Phone is required!
+                  </small>
+                </div>
+                <div class="col-sm-2"></div>
+              </div>
+              <!-- End: Phone -->
+              <!-- Address -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">Address</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-location-arrow" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="address" (change)="modifyProfile()" />
+                  </div>
+                  <!-- Error address handler -->
+                  <small class="help-block"
+                    *ngIf="profileForm.get('address').invalid && profileForm.get('address').touched">
+                    Address is required!
+                  </small>
+                </div>
+                <div class="col-sm-2"></div>
+              </div>
+              <!-- End: Address -->
+
+              <!-- button grouop -->
+              <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7 text-right">
+                  <button class="btn btn-success" type="button" (click)="resetProfile()"
+                    [disabled]="profileForm.valid === true && profileMode === true ? false : true">Reset</button>
+                  <button class="btn btn-info ml-2" type="submit"
+                    [disabled]="profileForm.valid === true && profileMode === true ? false : true">Save
+                    changes</button>
+                </div>
+                <div class="col-sm-2"></div>
+              </div>
+
             </form>
           </tab>
+          <!-- Tab: Edit Password -->
+          <tab heading="Edit Password">
+            <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+              <!-- Old Password -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">Old password</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="oldPassword" (change)="modifyPassword()" />
+                  </div>
+                  <!-- Error password handler -->
+                  <small class="help-block"
+                    *ngIf="passwordForm.get('oldPassword').hasError('required') && passwordForm.get('oldPassword').touched">
+                    Password is required!
+                  </small>
+                </div>
+                <div class="col-sm-2"></div>
+              </div>
+              <!-- End: Old Password -->
+              <!-- New Password -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label">New password</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="newPassword" #newPass (change)="modifyPassword()" />
+                  </div>
+                  <!-- Error password handler -->
+                  <small class="help-block"
+                    *ngIf="passwordForm.get('newPassword').hasError('required') && passwordForm.get('newPassword').touched">
+                    Password is required!
+                  </small>
+                  <small class="help-block"
+                    *ngIf="passwordForm.get('newPassword').hasError('minlength') && passwordForm.get('newPassword').touched">
+                    Password must be at least 4 characters!
+                  </small>
+                  <small class="help-block"
+                    *ngIf="passwordForm.get('newPassword').hasError('maxlength') && passwordForm.get('newPassword').touched">
+                    Password cannot exceed 8 characters!
+                  </small>
+                </div>
+                <div class="col-sm-2"></div>
+              </div>
+              <!-- End: New Password -->
+              <!-- Reqpeat password -->
+              <div class="form-group row">
+                <label class="col-sm-3 control-label text-nowrap">Reqpeat password</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="repeatPassword" (change)="modifyPassword()" />
+                  </div>
+                  <!-- Error repeatPassword handler -->
+                  <small class="help-block"
+                    *ngIf="passwordForm.get('repeatPassword').hasError('required') && passwordForm.get('repeatPassword').touched">
+                    Repeat password is required!
+                  </small>
+                  <small class="help-block"
+                    *ngIf="passwordForm.get('repeatPassword').hasError('mismatch') && passwordForm.get('repeatPassword').touched">
+                    Repeat password is not match!
+                  </small>
+                </div>
+                <div class="col-sm-2"></div>
+              </div>
+              <!-- End: Reqpeat password -->
+
+              <!-- button grouop -->
+              <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7 text-right">
+                  <button class="btn btn-success" type="button" (click)="resetPassword()"
+                    [disabled]="passwordForm.valid === true && passwordMode === true ? false : true">Reset</button>
+                  <button class="btn btn-info ml-2" type="submit"
+                    [disabled]="passwordForm.valid === true && passwordMode === true ? false : true">Save
+                    changes</button>
+                </div>
+                <div class="col-sm-2"></div>
+              </div>
+
+            </form>
+          </tab>
+          <!-- Tab: Edit Photos -->
           <tab heading="Edit Photos">
-            <p>Edit photo will go here</p>
+            <app-photo-editor [photos]="admin.photos"></app-photo-editor>
           </tab>
         </tabset>
       </div>
