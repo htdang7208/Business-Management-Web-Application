@@ -1,5 +1,5 @@
 <h4>Student Filter</h4>
-<form [formGroup]="filterForm">
+<form [formGroup]="filterForm" class="filter-form">
   <div class="mr-1">
     <label>Name:</label>
     <input class="form-control" type="text" placeholder="Enter name" formControlName="name" (input)="loadStudents()" />
@@ -24,47 +24,50 @@
   <button class="btn btn-dark" type="button" (click)="resetFilter()">Reset Filter</button>
 </div>
 
-<h4>Student table:</h4>
+<h4 class="mb-3">Student table:</h4>
 <div class="table-content">
-  <table class="table table-hover table-striped table-light">
+  <table class="table-header">
     <thead>
       <tr>
-        <th scope="col">No</th>
-        <th scope="col">Name</th>
-        <th scope="col">Identity Number</th>
-        <th scope="col">Interview Time</th>
-        <th scope="col">Status</th>
-        <!-- <th scope="col">Remark</th> -->
-        <th scope="col"></th>
+        <th class="tb-col-1" scope="col">No</th>
+        <th class="tb-col-2" scope="col">Name</th>
+        <th class="tb-col-3" scope="col">Identity Number</th>
+        <th class="tb-col-4" scope="col">Interview Time</th>
+        <th class="tb-col-5" scope="col">Status</th>
+        <th class="tb-col-6" scope="col"></th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngIf="students.length <= 0">
-        <td colspan="5" class="emtpy-table-content">
-          Empty...
-        </td>
-      </tr>
-      <tr *ngFor="let student of students; index as i">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ student.name }}</td>
-        <td>{{ student.identityNumber }}</td>
-        <td>{{ student.interviewTime }}</td>
-        <td>{{ student.status === 2 ? 'Not attended' : student.status === 0 ? 'Failed' : 'Passed'}}</td>
-        <td>
-          <span class="text-primary" (click)="openModal(editModal, student)">
-            <abbr title="edit">
-              <i class="fa fa-pencil-square-o extend-size-1" aria-hidden="true"></i>
-            </abbr>
-          </span> -
-          <span class="text-danger" (click)="remove(student)">
-            <abbr title="delete">
-              <i class="fa fa-trash-o extend-size-1" aria-hidden="true"></i>
-            </abbr>
-          </span>
-        </td>
-      </tr>
-    </tbody>
   </table>
+  <div class="table-body">
+    <table class="table table-hover table-striped table-light">
+      <tbody>
+        <tr *ngIf="students?.length <= 0">
+          <td colspan="5" class="emtpy-table-content">
+            Empty...
+          </td>
+        </tr>
+        <tr *ngFor="let student of students; index as i">
+          <th class="tb-col-1" scope="row">{{ i + 1 }}</th>
+          <td class="tb-col-2">{{ student.name }}</td>
+          <td class="tb-col-3">{{ student.identityNumber }}</td>
+          <td class="tb-col-4">{{ student.interviewTime }}</td>
+          <td class="tb-col-5">{{ student.status === 2 ? 'Not attended' : student.status === 0 ? 'Failed' : 'Passed'}}</td>
+          <td class="tb-col-6">
+            <span class="text-primary" (click)="openModal(editModal, student)">
+              <abbr title="edit">
+                <i class="fa fa-pencil-square-o extend-size-1" aria-hidden="true"></i>
+              </abbr>
+            </span> -
+            <span class="text-danger" (click)="remove(student)">
+              <abbr title="delete">
+                <i class="fa fa-trash-o extend-size-1" aria-hidden="true"></i>
+              </abbr>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <div class="d-flex justify-content-between">

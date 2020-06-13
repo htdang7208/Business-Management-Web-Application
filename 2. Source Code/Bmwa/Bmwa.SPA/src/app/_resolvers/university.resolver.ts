@@ -15,7 +15,7 @@ export class UniversityResolver implements Resolve<PaginationResult<University[]
                 private router: Router) {
     }
     resolve(): Observable<PaginationResult<University[]>> {
-        return this.universityService.getUniversities()
+        return this.universityService.getUniversities(1, 10)
             .pipe(
                 catchError(
                     error => {

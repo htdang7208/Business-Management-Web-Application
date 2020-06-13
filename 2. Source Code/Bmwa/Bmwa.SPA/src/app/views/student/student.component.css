@@ -1,35 +1,27 @@
-.extend-size-1:hover {
-  transform: scale(1.5);
+.tb-col-1 {
+  width: 10%;
 }
 
-.table-content {
-  max-height: 310px;
-  overflow: auto;
-  margin-bottom: .5rem;
+.tb-col-2 {
+  width: 20%;
 }
 
-table {
-  border: 1px solid rgb(235, 235, 235);
+.tb-col-3 {
+  width: 15%;
 }
 
-form {
-  display: flex;
-  align-items: flex-start;
-  margin-top: .25rem;
-  margin-bottom: .5rem;
-  padding: .5rem;
+.tb-col-4 {
+  width: 15%;
 }
 
-form,
-.table-content,
-.border-info {
-  border: 1px solid #17a2b8 !important;
-  border-radius: .5rem;
+.tb-col-5 {
+  width: 15%;
 }
 
-td abbr {
-  cursor: pointer;
+.tb-col-6 {
+  width: 15%;
 }
+
 
 timepicker {
   margin-top: .35rem;

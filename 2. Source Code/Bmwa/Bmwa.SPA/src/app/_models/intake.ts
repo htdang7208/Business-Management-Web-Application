@@ -3,5 +3,7 @@ export interface Intake {
     name: string;
     dateBegin: Date;
     dateEnd: Date;
-    weekAmount: number;
+    weekCount: number;
+    educationProgramName: string;
+    isDelete: boolean;
 }

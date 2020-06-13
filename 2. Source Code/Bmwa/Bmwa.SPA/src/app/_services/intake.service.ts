@@ -33,23 +33,16 @@ export class IntakeService {
         params = params.append('weekAmount', intakeParams.weekAmount);
       }
 
-      if (intakeParams.dateBeginFrom != null) {
+      if (intakeParams.dateBegin != null) {
         // toJSON(): example-2020-06-03T06:46:01.000Z
-        params = params.append('dateBeginFrom', intakeParams.dateBeginFrom.toJSON());
+        params = params.append('dateBegin', intakeParams.dateBegin);
       }
 
-      if (intakeParams.dateBeginTo != null) {
-        params = params.append('dateBeginTo', intakeParams.dateBeginTo.toJSON());
-      }
-
-      if (intakeParams.dateEndFrom != null) {
-        params = params.append('dateEndFrom', intakeParams.dateEndFrom.toJSON());
-      }
-
-      if (intakeParams.dateEndTo != null) {
-        params = params.append('dateEndTo', intakeParams.dateEndTo.toJSON());
+      if (intakeParams.dateEnd != null) {
+        params = params.append('dateEnd', intakeParams.dateEnd);
       }
     }
+    console.log('params: ', params);
 
     return this.http.get<Intake[]>(this.baseUrl + 'intakes', { observe: 'response', params })
     .pipe(

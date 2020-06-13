@@ -31,12 +31,11 @@ namespace Bmwa.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetIntakes([FromQuery]IntakeParams intakeParams)
         {
-            var intakes = await _repo.GetIntakes(intakeParams);
-            var intakesToReturn = _mapper.Map<IEnumerable<Intake>>(intakes);
+            PagedList<IntakeForListDto> intakes = await _repo.GetIntakes(intakeParams);
 
             Response.AddPagination(intakes.CurrentPage, intakes.PageSize, intakes.TotalCount, intakes.TotalPages);
 
-            return Ok(intakesToReturn);
+            return Ok(intakes);
         }
 
         [HttpGet("{id}")]

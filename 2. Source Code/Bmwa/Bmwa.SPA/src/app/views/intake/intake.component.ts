@@ -4,13 +4,7 @@ import { Intake } from 'src/app/_models/intake';
 import { IntakeService } from 'src/app/_services/intake.service';
 import { BsModalRef, BsModalService, BsDatepickerConfig } from 'ngx-bootstrap';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import {
-  FormBuilder,
-  NgForm,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Pagination, PaginationResult } from 'src/app/_models/pagination';
 
 @Component({
@@ -42,9 +36,7 @@ export class IntakeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private intakeService: IntakeService,
-    private modalService: BsModalService,
     private alertify: AlertifyService,
-    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -61,10 +53,8 @@ export class IntakeComponent implements OnInit {
     this.filterForm = new FormGroup({
       name: new FormControl(null),
       weekAmount: new FormControl(null),
-      dateBeginFrom: new FormControl(null),
-      dateBeginTo: new FormControl(null),
-      dateEndFrom: new FormControl(null),
-      dateEndTo: new FormControl(null),
+      dateBegin: new FormControl(null),
+      dateEnd: new FormControl(null),
     });
   }
 
@@ -94,18 +84,10 @@ export class IntakeComponent implements OnInit {
     this.filterForm.reset({
       name: null,
       weekAmount: null,
-      dateBeginFrom: null,
-      dateBeginTo: null,
-      dateEndFrom: null,
-      dateEndTo: null,
+      dateBegin: null,
+      dateEnd: null,
     });
     this.loadIntakes();
-  }
-
-  applyFilter() {
-    // console.log('applyFilter: ', this.filterForm.value.dateBeginFrom);
-    // console.log('applyFilter: ', this.filterForm.value.dateBeginFrom.toJSON());
-    // this.loadIntakes();
   }
 
   openAdd() {

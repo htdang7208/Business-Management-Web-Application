@@ -4,6 +4,8 @@ import { IntakeService } from 'src/app/_services/intake.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { Intake } from 'src/app/_models/intake';
+import { EducationProgramService } from 'src/app/_services/education-program.service';
+import { EducationProgram } from 'src/app/_models/education-program';
 
 @Component({
   selector: 'app-intake-add',
@@ -15,11 +17,22 @@ export class IntakeAddComponent implements OnInit {
   @Output() currentPageEmitter = new EventEmitter<number>();
   @Output() closeEmitter = new EventEmitter();
   @ViewChild('f', null) intakeForm: NgForm;
+  eduPrograms: EducationProgram[];
+  eduInit = {id: 0, value: '(None)'};
 
   constructor(private intakeService: IntakeService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService,
+              private eduService: EducationProgramService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.eduService.getAll()
+    .subscribe(
+      (data: EducationProgram[]) => {
+        this.eduPrograms = data;
+      },
+      error => this.alertify.error('Cannot get education program list')
+    );
+  }
 
   submit() {
     this.intakeService.addIntake(this.intakeForm.value).subscribe(

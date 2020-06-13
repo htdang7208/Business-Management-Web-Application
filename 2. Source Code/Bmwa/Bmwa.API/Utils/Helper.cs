@@ -25,7 +25,7 @@ namespace Bmwa.API.Utils
         {
             month = intake.DateBegin.Month;
             year = intake.DateBegin.Year;
-            totalDays = intake.WeekAmount * 7;
+            totalDays = intake.WeekCount * 7;
             daysRemainInMonth = new int[] { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
             UpdateLeapYear(year);

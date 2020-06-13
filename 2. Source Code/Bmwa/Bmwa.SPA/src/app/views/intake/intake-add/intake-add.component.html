@@ -8,6 +8,7 @@
       ngModel
       type="text"
       name="name"
+      placeholder="Enter name"
       class="form-control" />
     <small
       *ngIf="name.invalid && name.touched"
@@ -16,21 +17,22 @@
     </small>
   </div>
   <div class="form-group">
-    <label class="control-label">Week amount</label>
+    <label class="control-label">Week count</label>
     <input
       required
-      #weekAmount="ngModel"
+      #weekCount="ngModel"
       ngModel
       type="number"
-      name="weekAmount"
+      name="weekCount"
+      placeholder="Enter weekCount"
       class="form-control" />
     <small
-      *ngIf="weekAmount.invalid && weekAmount.touched"
+      *ngIf="weekCount.invalid && weekCount.touched"
       class="help-block">
       Week amount is required!
     </small>
     <small
-      *ngIf="weekAmount.value < 0 && weekAmount.touched"
+      *ngIf="weekCount.value < 0 && weekCount.touched"
       class="help-block">
       Week amount is not right!
     </small>
@@ -49,6 +51,15 @@
       class="help-block">
       Date begin is required!
     </small>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Education program</label>
+    <select
+      [ngModel]="eduPrograms[0].id"
+      name="eduProgram"
+      class="form-control">
+      <option *ngFor="let edu of eduPrograms" [value]="edu.id">{{edu.name}}</option>
+    </select>
   </div>
   <div class="text-center">
     <button type="submit" class="btn btn-primary mr-1 mb-1 w-50" [disabled]="!f.valid">Add new</button>

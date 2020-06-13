@@ -45,6 +45,7 @@ namespace Bmwa.API
             services.AddScoped<IIntakeRepository, IntakeRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IUniversityRepository, UniversityRepository>();
+            services.AddScoped<IEducationProgramRepository, EducationProgramRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
                         options.TokenValidationParameters = new TokenValidationParameters

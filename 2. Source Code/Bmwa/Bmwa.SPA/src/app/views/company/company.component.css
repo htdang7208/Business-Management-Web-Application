@@ -1,21 +1,5 @@
-.table-content {
-  border: 1px solid #17a2b8 !important;
-  border-radius: .5rem;
-  margin-bottom: .5rem;
-}
-
-.table-header {
-  width: 100%;
-  margin-bottom: 0;
-}
-.table-header th {
-  padding: .75rem;
-  vertical-align: bottom;
-}
-
 .table-body {
   max-height: 550px;
-  overflow: auto;
 }
 
 button.btn-add {

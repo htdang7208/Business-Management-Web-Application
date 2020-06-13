@@ -13,9 +13,11 @@ namespace Bmwa.API.Models
         public string Name { get; set; }
         public DateTime DateBegin { get; set; }
         public DateTime DateEnd { get; set; }
-        public int WeekAmount { get; set; }
-        public Boolean IsShown { get; set; }
+        public int WeekCount { get; set; }
+        public bool IsDelete { get; set; }
 
         // relation:
+        public int EduProgId { get; set; }
+        public EducationProgram EducationProgram { get; set; }
     }
 }

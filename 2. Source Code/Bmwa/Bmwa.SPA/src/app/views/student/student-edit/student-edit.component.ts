@@ -82,7 +82,7 @@ export class StudentEditComponent implements OnInit {
     console.log(typeof(event));
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e) => this.photoUrl = e.target.result.toString();
+      reader.onload = (e: ProgressEvent<FileReader>) => this.photoUrl = e.target.result.toString();
       reader.readAsDataURL(event.target.files[0]);
 
       // Update form student

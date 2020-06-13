@@ -7,6 +7,11 @@
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 
+
+html {
+  min-width: 1470px !important;
+}
+
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 850px !important;
@@ -26,8 +31,14 @@
   }
 }
 
+
 .extend-size-1:hover {
   transform: scale(1.5);
+}
+
+button.btn-add {
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
+  padding-left: 1.2rem;
 }
 
 table {
@@ -36,7 +47,44 @@ table {
 }
 
 table td abbr {
-  cursor: pointer!important;
+  cursor: pointer !important;
+}
+
+table td:last-child {
+  text-align: end;
+  padding-right: 1.5rem;
+}
+
+form.filter-form {
+  display: flex;
+  margin-top: .25rem;
+  margin-bottom: .5rem;
+  padding: .5rem;
+}
+
+form.filter-form,
+.table-content {
+  border: 1px solid #17a2b8 !important;
+  border-radius: .5rem;
+}
+
+.table-content {
+  margin-bottom: .5rem;
+}
+
+.table-header {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.table-header th {
+  padding: .75rem;
+  vertical-align: bottom;
+}
+
+.table-body {
+  max-height: 257px;
+  overflow: auto;
 }
 
 .emtpy-table-content {
@@ -85,7 +133,7 @@ div.message::after {
   color: #fff;
 }
 
-div.message>p {
+div.message>p.question {
   margin-bottom: .5rem;
 }
 

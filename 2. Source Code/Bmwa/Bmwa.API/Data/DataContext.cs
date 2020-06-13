@@ -22,5 +22,13 @@ namespace Bmwa.API.Data
         public DbSet<University> Universities { get; set; }
         public DbSet<Trainee> Trainees { get; set; }
         public DbSet<WorkTrack> WorkTracks { get; set; }
+        public DbSet<EducationProgram> EducationPrograms { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<EducationProgram>()
+                .HasOne(e => e.Intake)
+                .WithOne(i => i.EducationProgram)
+                .HasForeignKey<Intake>(i => i.EduProgId);
+        }
     }
 }
