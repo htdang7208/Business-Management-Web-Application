@@ -24,6 +24,13 @@ namespace Bmwa.API.Controllers
 
             return Ok(educationPrograms);
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSubjectsByEducationId(int id) {
+            var subjects = await _repo.GetSubjectsByEducationId(id);
+            if (subjects == null)
+                return BadRequest("Cannot get this education program");
+            return Ok(subjects);
+        }
         [HttpGet]
         public async Task<IActionResult> GetEducationPrograms([FromQuery] EducationProgramParams educationProgramParams) {
             var educationPrograms = await _repo.GetEducationPrograms(educationProgramParams);

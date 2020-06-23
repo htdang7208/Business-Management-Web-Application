@@ -32,20 +32,34 @@ namespace Bmwa.API.Data.Repositories
 
         public async Task<PagedList<IntakeForListDto>> GetIntakes(IntakeParams intakeParams)
         {
-            var intakes = _context.Intakes.Join(
+            var intakes = _context.Intakes
+            .Join(
                 _context.EducationPrograms,
-                i=>i.EduProgId,
-                e=>e.Id,
-                (i, e) => new IntakeForListDto{
+                i => i.EduProgId,
+                e => e.Id,
+                (i, e) => new IntakeForListDto
+                {
                     Id = i.Id,
                     Name = i.Name,
                     DateBegin = i.DateBegin,
                     DateEnd = i.DateEnd,
                     WeekCount = i.WeekCount,
-                    EducationProgramName = e.Name,
+                    EducationProgram = e,
                     IsDelete = i.IsDelete
                 }
-            ).Where(i => i.IsDelete == false).OrderByDescending(i => i.Name).AsQueryable();
+            ).Where(i => i.IsDelete == false).OrderBy(i => i.Id).AsQueryable();
+            // var intakes = _context.Intakes
+            //     .Include(edu => edu.EducationProgram)
+            //     .Where(i => i.IsDelete == false && i.EduProgId == i.EducationProgram.Id)
+            //     .Select(i => new Intake{
+            //         Id = i.Id,
+            //         Name = i.Name,
+            //         DateBegin = i.DateBegin,
+            //         DateEnd = i.DateEnd,
+            //         WeekCount = i.WeekCount,
+            //         EducationProgram = i.EducationProgram,
+            //         IsDelete = i.IsDelete
+            //     });
 
             if (intakeParams.Name != null)
                 intakes = intakes.Where(i => i.Name.Contains(intakeParams.Name));
@@ -82,6 +96,7 @@ namespace Bmwa.API.Data.Repositories
             intakeFromDB.WeekCount = intake.WeekCount;
             intakeFromDB.DateBegin = intake.DateBegin.Date;
             intakeFromDB.DateEnd = Helper.FindDateEnd(intake);
+            intakeFromDB.EduProgId = intake.EduProgId;
 
             _context.Intakes.Update(intakeFromDB);
 
@@ -112,6 +127,7 @@ namespace Bmwa.API.Data.Repositories
                 DateBegin = intake.DateBegin,
                 DateEnd = Helper.FindDateEnd(intake),
                 WeekCount = intake.WeekCount,
+                EduProgId = intake.EduProgId,
                 IsDelete = false
             });
 

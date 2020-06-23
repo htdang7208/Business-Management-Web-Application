@@ -1,9 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { IntakeService } from 'src/app/_services/intake.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
-import { Intake } from 'src/app/_models/intake';
 import { EducationProgramService } from 'src/app/_services/education-program.service';
 import { EducationProgram } from 'src/app/_models/education-program';
 
@@ -18,7 +16,7 @@ export class IntakeAddComponent implements OnInit {
   @Output() closeEmitter = new EventEmitter();
   @ViewChild('f', null) intakeForm: NgForm;
   eduPrograms: EducationProgram[];
-  eduInit = {id: 0, value: '(None)'};
+  eduProgId: number;
 
   constructor(private intakeService: IntakeService,
               private alertify: AlertifyService,
@@ -29,14 +27,16 @@ export class IntakeAddComponent implements OnInit {
     .subscribe(
       (data: EducationProgram[]) => {
         this.eduPrograms = data;
+        this.eduProgId = data[0].id;
       },
-      error => this.alertify.error('Cannot get education program list')
+      () => this.alertify.error('Cannot get education program list')
     );
   }
 
   submit() {
+    // console.log(this.intakeForm.value);
     this.intakeService.addIntake(this.intakeForm.value).subscribe(
-      (next) => {
+      () => {
         this.alertify.success('Add intake successfully!');
         this.currentPageEmitter.emit(this.lastPage);
       },

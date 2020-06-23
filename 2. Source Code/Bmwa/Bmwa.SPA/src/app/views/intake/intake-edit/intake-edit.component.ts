@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { FormControl, NgForm } from '@angular/forms';
 import { IntakeService } from 'src/app/_services/intake.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { Intake } from 'src/app/_models/intake';
-import { FindValueSubscriber } from 'rxjs/internal/operators/find';
+import { EducationProgram } from 'src/app/_models/education-program';
+import { EducationProgramService } from 'src/app/_services/education-program.service';
 
 @Component({
   selector: 'app-intake-edit',
@@ -17,29 +17,39 @@ export class IntakeEditComponent implements OnInit, OnDestroy {
   @Output() currentPageEmitter = new EventEmitter<number>();
   @Output() closeEmitter = new EventEmitter();
   @ViewChild('f', null) intakeForm: NgForm;
+  eduPrograms: EducationProgram[];
 
   constructor(private intakeService: IntakeService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService,
+              private eduService: EducationProgramService) { }
   ngOnDestroy(): void {
     this.intakeForm.resetForm();
   }
 
   ngOnInit() {
+    this.eduService.getAll()
+    .subscribe(
+      (data: EducationProgram[]) => {
+        this.eduPrograms = data;
+      },
+      () => this.alertify.error('Cannot get education program list')
+    );
   }
 
   weekAmountValidator(c: FormControl) {
     return c.value <= 0 ? { errorValue: true } : null;
   }
 
-  insertValidator(weekAmount: number) {
+  insertValidator() {
     this.intakeForm.controls.weekAmount.setValidators(this.weekAmountValidator.bind(this));
   }
 
   submit() {
+    console.log(this.intakeForm.value);
     this.intakeService
       .updateIntake(this.intake.id, this.intakeForm.value)
       .subscribe(
-        (next) => {
+        () => {
           this.alertify.success('Update intake successfully!');
           this.currentPageEmitter.emit(this.currentPage);
         },

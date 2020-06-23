@@ -13,21 +13,21 @@
       Name is required!</div>
   </div>
   <div class="form-group">
-    <label class="control-label">Week amount</label>
+    <label class="control-label">Week count</label>
     <input
       required
-      name="weekAmount"
-      #weekAmount="ngModel"
-      [ngModel]="intake.weekAmount"
+      name="weekCount"
+      #weekCount="ngModel"
+      [ngModel]="intake.weekCount"
       type="number"
       class="form-control"
       (input)="insertValidator()" />
-    <div *ngIf="weekAmount.invalid && weekAmount.touched" class="help-block">
-      Week amount is required!</div>
+    <div *ngIf="weekCount.invalid && weekCount.touched" class="help-block">
+      Week count is required!</div>
     <div
-      *ngIf="weekAmount.hasError('errorValue') && weekAmount.value !== null"
+      *ngIf="weekCount.hasError('errorValue') && weekCount.value !== null"
       class="help-block">
-      Week amount is not right!</div>
+      Week count is not right!</div>
   </div>
   <div class="form-group">
     <label class="control-label">Date begin</label>
@@ -40,6 +40,15 @@
       class="form-control" />
     <div *ngIf="dateBegin.invalid && dateBegin.touched" class="help-block">
       Date begin is required!</div>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Education program</label>
+    <select
+      [ngModel]="intake.educationProgram.id"
+      name="eduProgId"
+      class="form-control">
+      <option *ngFor="let edu of eduPrograms" [value]="edu.id">{{eduPrograms?.length < 0 ? intake.educationProgram.name : edu.name}}</option>
+    </select>
   </div>
   <div class="text-center">
     <button type="submit" class="btn btn-primary mr-1 mb-1 w-50" [disabled]="!f.valid">Update</button>

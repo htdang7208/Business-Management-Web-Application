@@ -25,6 +25,9 @@ import { UniversityComponent } from './views/university/university.component';
 import { UniversityResolver } from './_resolvers/university.resolver';
 import { CompanyComponent } from './views/company/company.component';
 import { CompanyResolver } from './_resolvers/company.resolver';
+import { EducationProgram } from './_models/education-program';
+import { EducationProgramResolver } from './_resolvers/education-program.resolver';
+import { EducationProgramComponent } from './views/education-program/education-program.component';
 
 export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
@@ -59,7 +62,8 @@ export const appRoutes: Routes = [
       { path: 'intakes', component: IntakeComponent, resolve: { intakes: IntakeResolver} },
       { path: 'interviews', component: InterviewComponent, resolve: { interviews: InterviewResolver} },
       { path: 'companies', component: CompanyComponent, resolve: { companies: CompanyResolver} },
-      { path: 'universities', component: UniversityComponent, resolve: { universities: UniversityResolver} }
+      { path: 'universities', component: UniversityComponent, resolve: { universities: UniversityResolver} },
+      { path: 'educationPrograms', component: EducationProgramComponent, resolve: { educationPrograms: EducationProgramResolver } }
     ],
   },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },

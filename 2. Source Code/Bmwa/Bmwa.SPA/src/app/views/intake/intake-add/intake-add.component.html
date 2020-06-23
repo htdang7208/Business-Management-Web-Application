@@ -55,8 +55,8 @@
   <div class="form-group">
     <label class="control-label">Education program</label>
     <select
-      [ngModel]="eduPrograms[0].id"
-      name="eduProgram"
+      [ngModel]="eduProgId"
+      name="eduProgId"
       class="form-control">
       <option *ngFor="let edu of eduPrograms" [value]="edu.id">{{edu.name}}</option>
     </select>

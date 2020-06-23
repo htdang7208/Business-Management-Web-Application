@@ -82,6 +82,14 @@ import { CompanyAddComponent } from './views/company/company-add/company-add.com
 import { CompanyEditComponent } from './views/company/company-edit/company-edit.component';
 import { UniversityEditComponent } from './views/university/university-edit/university-edit.component';
 import { UniversityAddComponent } from './views/university/university-add/university-add.component';
+import { EducationProgramComponent } from './views/education-program/education-program.component';
+import { SubjectComponent } from './views/subject/subject.component';
+import { LecturerComponent } from './views/lecturer/lecturer.component';
+import { EducationProgramAddComponent } from './views/education-program/education-program-add/education-program-add.component';
+import { EducationProgramEditComponent } from './views/education-program/education-program-edit/education-program-edit.component';
+import { EducationProgramViewComponent } from './views/education-program/education-program-view/education-program-view.component';
+import { EducationProgramService } from './_services/education-program.service';
+import { EducationProgramResolver } from './_resolvers/education-program.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -126,7 +134,13 @@ export class CustomHammerConfig extends HammerGestureConfig {
     CompanyAddComponent,
     CompanyEditComponent,
     UniversityEditComponent,
-    UniversityAddComponent
+    UniversityAddComponent,
+    EducationProgramComponent,
+    SubjectComponent,
+    LecturerComponent,
+    EducationProgramAddComponent,
+    EducationProgramEditComponent,
+    EducationProgramViewComponent
   ],
   imports: [
     BrowserModule,
@@ -165,6 +179,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
     AlertifyService,
     CompanyService,
     UniversityService,
+    EducationProgramService,
     // Resolver
     AdminDetailResolver,
     AdminListResolver,
@@ -173,6 +188,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
     InterviewResolver,
     CompanyResolver,
     UniversityResolver,
+    EducationProgramResolver,
     //
     ErrorInterceptorProvider,
     AuthGuard,

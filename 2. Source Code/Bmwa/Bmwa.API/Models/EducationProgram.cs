@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,5 +12,6 @@ namespace Bmwa.API.Models
        public string Name { get; set; }
        public bool IsDelete { get; set; }
        public Intake Intake { get; set; }
+        public ICollection<SubjectProgram> SubjectPrograms { get; set; }
     }
 }

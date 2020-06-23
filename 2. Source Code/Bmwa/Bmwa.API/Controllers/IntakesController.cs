@@ -31,7 +31,7 @@ namespace Bmwa.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetIntakes([FromQuery]IntakeParams intakeParams)
         {
-            PagedList<IntakeForListDto> intakes = await _repo.GetIntakes(intakeParams);
+            var intakes = await _repo.GetIntakes(intakeParams);
 
             Response.AddPagination(intakes.CurrentPage, intakes.PageSize, intakes.TotalCount, intakes.TotalPages);
 

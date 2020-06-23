@@ -41,13 +41,13 @@
       <table class="table-header">
         <thead>
           <tr>
-            <th class="tb-col-1" scope="col">No</th>
-            <th class="tb-col-2" scope="col">Name</th>
-            <th class="tb-col-3" scope="col">Date begin</th>
-            <th class="tb-col-4" scope="col">Date end</th>
-            <th class="tb-col-5" scope="col">Week count</th>
-            <th class="tb-col-6" scope="col">Education Program</th>
-            <th class="tb-col-7" scope="col"></th>
+            <th class="tb-col-1">No</th>
+            <th class="tb-col-2">Name</th>
+            <th class="tb-col-3">Date begin</th>
+            <th class="tb-col-4">Date end</th>
+            <th class="tb-col-5">Week count</th>
+            <th class="tb-col-6">Education Program</th>
+            <th class="tb-col-7"></th>
           </tr>
         </thead>
       </table>
@@ -65,7 +65,7 @@
               <td class="tb-col-3">{{ intake.dateBegin | date: 'mediumDate'}}</td>
               <td class="tb-col-4">{{ intake.dateEnd | date: 'mediumDate'}}</td>
               <td class="tb-col-5">{{ intake.weekCount }}</td>
-              <td class="tb-col-6">{{ intake.educationProgramName }}</td>
+              <td class="tb-col-6">{{ intake.educationProgram.name }}</td>
               <td class="tb-col-7">
                 <span class="text-primary" (click)="openEdit(intake)">
                   <abbr title="edit">

@@ -1,0 +1,16 @@
+button.btn-add {
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 15% 50%);
+  padding-left: 2.5rem;
+}
+
+.tb-col-1 {
+  width: 10%;
+}
+
+.tb-col-2 {
+  width: 75%;
+}
+
+.tb-col-3 {
+  width: 15%;
+}

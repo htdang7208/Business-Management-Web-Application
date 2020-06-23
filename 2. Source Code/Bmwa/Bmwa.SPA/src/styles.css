@@ -50,7 +50,8 @@ table td abbr {
   cursor: pointer !important;
 }
 
-table td:last-child {
+table td:last-child,
+table th:last-child {
   text-align: end;
   padding-right: 1.5rem;
 }

@@ -1,4 +1,5 @@
 using System;
+using Bmwa.API.Models;
 
 namespace Bmwa.API.Dtos
 {
@@ -10,6 +11,6 @@ namespace Bmwa.API.Dtos
         public DateTime DateEnd { get; set; }
         public int WeekCount { get; set; }
         public bool IsDelete { get; set; }
-        public string EducationProgramName { get; set; }
+        public EducationProgram EducationProgram{ get; set; }
     }
 }

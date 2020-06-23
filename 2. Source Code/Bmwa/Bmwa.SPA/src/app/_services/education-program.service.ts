@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { PaginationResult } from '../_models/pagination';
 import { EducationProgram } from '../_models/education-program';
 import { map } from 'rxjs/operators';
+import { Subject } from '../_models/subject';
+import { SucjectProgramForAdd, SucjectProgramForUpdate } from '../_models/subject-program';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class EducationProgramService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
-  getEducationPrograms(pageNumber?, pageSize?): Observable<PaginationResult<EducationProgram[]>> {
+  getEducationPrograms(pageNumber?, pageSize?, nameFilter?): Observable<PaginationResult<EducationProgram[]>> {
     const paginationResult: PaginationResult<EducationProgram[]> = new PaginationResult<EducationProgram[]>();
 
     let params = new HttpParams();
@@ -21,6 +23,9 @@ export class EducationProgramService {
     if (pageNumber != null && pageSize != null) {
       params = params.append('pageNumber', pageNumber);
       params = params.append('pageSize', pageSize);
+    }
+    if (nameFilter != null) {
+      params = params.append('name', nameFilter);
     }
     return this.http.get<EducationProgram[]>(this.baseUrl + 'educationPrograms', { observe: 'response', params })
       .pipe(
@@ -37,5 +42,17 @@ export class EducationProgramService {
   }
   getAll(): Observable<EducationProgram[]> {
     return this.http.get<EducationProgram[]>(this.baseUrl + 'educationprograms/nopage');
+  }
+  getEducationProgram(id: number): Observable<Subject[]> {
+    return this.http.get<Subject[]>(this.baseUrl + 'educationPrograms/' + id);
+  }
+  add(sucjectProgramForAdd: SucjectProgramForAdd) {
+    return this.http.post(this.baseUrl + 'educationPrograms/', sucjectProgramForAdd);
+  }
+  update(id: number, sucjectProgramForUpdate: SucjectProgramForUpdate) {
+    return this.http.post(this.baseUrl + 'educationPrograms/', sucjectProgramForUpdate);
+  }
+  delete(id: number) {
+    return this.http.delete(this.baseUrl + 'educationPrograms/' + id);
   }
 }
